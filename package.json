@@ -1,0 +1,14 @@
+{
+	"name": "techtrove-web-bootstrap",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"sass-compile": "sass _resources/css/_custom-styles.scss _resources/css/custom-styles.css"
+	},
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"sass": "^1.70.0"
+	}
+}
