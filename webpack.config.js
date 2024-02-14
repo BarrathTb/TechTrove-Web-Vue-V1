@@ -6,30 +6,27 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
-	// Entry point of your application
 	entry: "./_resources/js/site.js",
 
-	// Output configuration for Webpack
 	output: {
 		path: path.resolve(__dirname, "dist"),
-		filename: "js/bundle.js", // Output file
+		filename: "js/bundle.js",
 	},
 
-	// Loaders and plugins are configured below
 	module: {
 		rules: [
 			{
-				test: /\.m?js$/, // Regex pattern to match all .js and .mjs files
+				test: /\.m?js$/,
 				exclude: /node_modules/,
 				use: {
-					loader: "babel-loader", // Loader for processing .js files
+					loader: "babel-loader",
 					options: {
-						presets: ["@babel/preset-env"], // Preset used for compilation
+						presets: ["@babel/preset-env"],
 					},
 				},
 			},
 			{
-				test: /\.scss$/, // Regex pattern to match all .scss files
+				test: /\.scss$/,
 				use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
 			},
 			{
