@@ -26,6 +26,13 @@ body {
   transform: scale(0.9);
 }
 
+@media (min-width: 768px) {
+  .hero-image {
+    background-size: cover;
+    background-position: bottom 90%;
+    height: 50vw;
+  }
+}
 .dropdown-menu {
   background-color: #2c2c2c;
   color: white;
@@ -53,22 +60,25 @@ a.nav-link.text-light-bold.main-nav-menu-item:focus {
   background-color: #08861f;
 }
 
+.accordion-item {
+  border-radius: 5px;
+}
 .accordion-item .accordion-button {
   transition: background-color 0.3s, color 0.3s;
   background-color: #2c2c2c;
   color: white;
+  border-radius: 5px;
 }
 .accordion-item .accordion-button:hover {
   background-color: #464646;
 }
 .accordion-item .accordion-button:focus {
   box-shadow: 0 0 0 0.25rem rgba(181, 208, 234, 0.5);
+  background-color: #0ee636;
 }
-.accordion-item .accordion-button:active {
-  transform: scale(0.9);
-}
-.accordion-item .accordion-button.collapsed.bg-primary {
-  background-color: #0ee636 !important;
+.accordion-item .accordion-button.collapsed {
+  background-color: #2c2c2c !important;
+  color: white !important;
 }
 
 .btn-primary {
@@ -161,12 +171,36 @@ select.select-input:focus[icon] {
   border: 1px solid #0ee636;
 }
 
+.btn-pill-light {
+  background-color: white;
+  border: 1px solid #ccc;
+  color: #161616;
+  font-weight: bold;
+  border-radius: 50rem;
+  outline: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.btn-pill-light:hover {
+  background-color: #e6e6e6;
+  border-color: #e6e6e6;
+  transform: translateY(-5px);
+  color: #161616;
+}
+.btn-pill-light:active {
+  transform: scale(0.9);
+}
+
 .bg-primary {
   background-color: #161616 !important;
 }
 
 .bg-secondary {
   background-color: #2c2c2c !important;
+}
+
+.bg-success {
+  background-color: #0ee636 !important;
 }
 
 .bg-contain {
@@ -207,12 +241,10 @@ select.select-input:focus[icon] {
 }
 
 .btn-outline-success {
-  color: #161616;
+  color: #0ee636;
   transition: color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
 .btn-outline-success:hover {
-  background-color: black;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   color: white !important;
   transform: translateY(-5px);
 }
@@ -230,6 +262,52 @@ select.select-input:focus[icon] {
   transform: translateY(-5px);
   border-color: #0ee636;
   transition: transform 0.5s ease, border-color 0.5s ease;
+}
+
+.hero-image {
+  background: linear-gradient(to top, #161616, rgba(0, 128, 128, 0)), url("../images/products/ek-fluid-gaming-digital-reef-art-1.webp") no-repeat center center;
+  background-size: cover;
+  position: relative;
+  width: 100vw;
+  height: 80vh;
+}
+
+.hero-text {
+  position: absolute;
+  bottom: 0%;
+  left: 43%;
+  transform: translate(-50%);
+}
+
+.hero-text-sm {
+  position: relative;
+  bottom: 0%;
+  left: 55%;
+}
+
+.hero-image-sm {
+  background: url("../images/products/ek-fluid-gaming-digital-reef-art-1.webp") no-repeat bottom;
+  background-size: cover;
+  position: relative; /* This is important for absolute positioning inside */
+  height: 15vh; /* You can adjust this height as needed */
+}
+
+.product-card .card-img-contain {
+  /* Set a specific height for the image container */
+  height: 220px; /* adjust as needed */
+  /* Optional: set a maximum width for the image if required */
+  max-width: 100%; /* this ensures that the image container doesn't exceed its parent width */
+  /* Center content */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-card .card-img-top {
+  width: auto; /* this will maintain the image width based on its aspect ratio */
+  max-width: 100%; /* ensure it's no wider than the container */
+  height: 100%; /* this will take up the full height of the container */
+  object-fit: cover; /* this will make sure the image covers the area, cropping if necessary */
 }
 
 .icon-success {
@@ -277,6 +355,13 @@ select.select-input:focus[icon] {
 #pc-builder,
 #support-section {
   display: none;
+}
+
+.input-black-line {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid black;
+  box-shadow: none;
 }
 
 /*# sourceMappingURL=custom-styles.css.map */

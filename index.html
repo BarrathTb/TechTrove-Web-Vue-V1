@@ -20,6 +20,12 @@
 	</head>
 
 	<body class="m-0">
+		<style>
+			.accordion {
+				--bs-accordion-btn-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+				--bs-accordion-btn-active-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+			}
+		</style>
 		<header class="">
 			<!-- Top bar -->
 
@@ -174,23 +180,117 @@
 				</div>
 			</div>
 		</div>
-
-		<div class="container-fluid welcome-container bg-primary" id="welcome-section">
-			<div class="row align-items-center mb-4 bg-primary p-4">
-				<div class="col-auto">
-					<img src="_resources/images/tech-entry-1.png" alt="Entry Image for TechTrove" class="img-fluid entry-image" />
+		<div class="container-fluid bg-primary">
+			<div class="container-lg welcome-container bg-primary justify-content-center" id="welcome-section">
+				<div class="row align-items-center mb-4 bg-primary p-4">
+					<div class="col-auto">
+						<img
+							src="_resources/images/tech-entry-1.png"
+							alt="Entry Image for TechTrove"
+							class="img-fluid entry-image" />
+					</div>
+					<div class="col-8">
+						<h1 class="ms-3 text-light">Find the perfect computer parts at Tech Trove!</h1>
+					</div>
 				</div>
-				<div class="col-8">
-					<h1 class="ms-3 text-light">Find the perfect computer parts at Tech Trove!</h1>
+
+				<div class="row align-items-center p-4">
+					<div class="col-9">
+						<input type="text" class="form-control search-input" placeholder="Search for quality computer parts..." />
+					</div>
+					<div class="col-auto">
+						<img
+							src="_resources/images/tech-entry-2.png"
+							alt="Another Image Description"
+							class="img-fluid entry-image" />
+					</div>
 				</div>
 			</div>
+		</div>
 
-			<div class="row align-items-center p-4">
-				<div class="col-8">
-					<input type="text" class="form-control search-input" placeholder="Search..." />
-				</div>
-				<div class="col-auto">
-					<img src="_resources/images/tech-entry-2.png" alt="Another Image Description" class="img-fluid entry-image" />
+		<div class="container-fluid welcome-container-two bg-primary" id="welcome-section-accordian">
+			<div class="col-12 mb-4">
+				<section class="accordion accordion-flush me-2 bg-primary" id="accordian-one">
+					<div class="accordion-item bg-primary">
+						<button
+							class="accordion-button d-flex justify-content-between collapsed white-icon text-light"
+							type="button"
+							data-bs-toggle="collapse"
+							data-bs-target="#collapseCEST"
+							aria-expanded="false"
+							aria-controls="collapseCEST">
+							How it Works
+						</button>
+
+						<div class="accordion-collapse collapse me-2" id="collapseCEST" data-bs-parent="#accordian-one">
+							<div class="accordion-body bg-primary">
+								<div class="row align-items-center mb-4 bg-primary p-4 justify-content-between">
+									<div class="col-lg-4 col-md-6 col-sm-12">
+										<div class="card product-card h-100 bg-secondary d-flex flex-column">
+											<a href="#" class="product-detail mt-2 me-2 ms-auto product-detail-icon"> </a>
+											<img
+												src="_resources/images/tech-entry-3.png"
+												class="card-img-top img-fluid"
+												alt="display tech image" />
+											<div class="card-body text-light flex-grow-1 d-flex flex-column justify-content-between pb-1">
+												<h5 class="card-title text-center font-size-md">Step 1</h5>
+												<p class="card-text text-center font-size-sm">
+													Search for the computer parts you need. Find the best deals and quality products.
+												</p>
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-6 col-sm-12">
+										<div class="card product-card h-100 bg-secondary d-flex flex-column">
+											<a href="#" class="product-detail mt-2 me-2 ms-auto product-detail-icon"> </a>
+											<img
+												src="_resources/images/tech-entry-4.png"
+												class="card-img-top img-fluid"
+												alt="display tech image" />
+											<div class="card-body text-light flex-grow-1 d-flex flex-column justify-content-between pb-1">
+												<h5 class="card-title text-center font-size-md">Step 2</h5>
+												<p class="card-text text-left font-size-sm">
+													Click ona product card for more details. Add products to your cart, and customize your order.
+												</p>
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-6 col-sm-12">
+										<div class="card product-card h-100 bg-secondary d-flex flex-column">
+											<a href="#" class="product-detail mt-2 me-2 ms-auto product-detail-icon"> </a>
+											<img
+												src="_resources/images/tech-entry-5.png"
+												class="card-img-top img-fluid"
+												alt="display tech image" />
+											<div class="card-body text-light flex-grow-1 d-flex flex-column justify-content-between pb-1">
+												<h5 class="card-title text-center font-size-md">Step 3</h5>
+												<p class="card-text text-left font-size-sm">
+													Review your cart and make any changes, proceed to checkout when ready. Don't forget to try the
+													pc builder to make your dream pc come to life.
+												</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+			<div class="row align-items-center mb-4 bg-primary p-4 justify-content-center">
+				<div class="col-lg-8 col-md-10 col-sm-12">
+					<div class="card product-card h-100 bg-secondary d-flex flex-column">
+						<a href="#" class="product-detail mt-2 me-2 ms-auto product-detail-icon"> </a>
+						<img src="_resources/images/tech-entry-7.png" class="card-img-top img-fluid" alt="display tech image" />
+						<div class="card-body text-light flex-grow-1 d-flex flex-column justify-content-between pb-1">
+							<h5 class="card-title text-center font-size-md">Shop with ease!</h5>
+							<p class="card-text text-left font-size-sm">
+								Get the best computer parts for any situation. Find the best deals and quality products. Download our
+								app below.
+							</p>
+							<button type="submit" class="btn btn-success">Download the App</button>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

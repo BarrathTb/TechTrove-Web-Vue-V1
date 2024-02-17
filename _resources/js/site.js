@@ -6,17 +6,13 @@ $(document).ready(function () {
 		return `
             <div class="col-12 col-sm-6 col-md-4 col-lg-3" data-product-id="${products.id}">
                 <div class="card product-card h-100 bg-secondary d-flex flex-column">
-                    <a href="#" class="product-detail mt-2 me-2 ms-auto product-detail-icon">
-                        <i class="fas fa-ellipsis-h white-icon icon-success  " 
-                            type="button" 
-                            data-bs-toggle="modal" 
-                            data-bs-target="#product-detail-modal"></i>
-                    </a>
+                    <div class="card-img-contain bg-white card p-4">
                     <img src="${products.image}" class="card-img-top img-fluid" alt="${products.name}" />
-                    <div class="card-body text-light flex-grow-1 d-flex flex-column justify-content-between pb-1">
+                    </div>
+										<div class="card-body text-light flex-grow-1 d-flex flex-column justify-content-between pb-1">
                         <h5 class="card-title text-center font-size-md">${products.name}</h5>
-                        <p class="card-text text-center font-size-sm">${products.description}</p>
-                        <a href="#" class="btn btn-success">Buy</a>
+                        <p class="card-text text-left font-size-sm">${products.description}</p>
+                        <a href="#product-detail-modal" class="btn btn-success view-product-details">View Product Details</a>
                     </div>
                 </div>
             </div>`;
@@ -26,26 +22,23 @@ $(document).ready(function () {
 		let carouselInnerHtml = "";
 
 		// Group the items
-		for (let i = 0; i < data.length; i += 6) {
+		for (let i = 0; i < data.length; i += 3) {
 			const activeClass = i === 0 ? " active" : "";
 
-			carouselInnerHtml += `<div class="carousel-item${activeClass}"><div class="row g-3 mt-2 justify-content-center">`;
+			// begin carousel item
+			carouselInnerHtml += `<div class="carousel-item${activeClass}"><div class="row g-3 mb-2 mt-2 justify-content-center">`;
 
 			for (let j = i; j < i + 3 && j < data.length; j++) {
 				carouselInnerHtml += createProductCard(data[j]);
 			}
 
-			carouselInnerHtml += `</div><div class="row g-3 mt-2 mb-2 justify-content-center">`;
-
-			for (let j = i + 3; j < i + 6 && j < data.length; j++) {
-				carouselInnerHtml += createProductCard(data[j]);
-			}
-
-			carouselInnerHtml += "</div></div>";
+			// end carousel item
+			carouselInnerHtml += `</div></div>`;
 		}
 
+		// Inject the carousel HTML and initialize the carousel
 		$("#productCarousel .carousel-inner").html(carouselInnerHtml);
-		$("#productCarousel").carousel(); //
+		$("#productCarousel").carousel();
 	}
 
 	// build the carousel based on dynamic filters
@@ -88,67 +81,89 @@ $(document).ready(function () {
 		e.stopPropagation();
 	});
 
-	$(".product-card").on("click", function () {
-		const productId = $(this).closest(".col-12").data("productId");
-		console.log(productId);
-		const productDetails = productsData.products.find((product) => product.id === productId);
+	let currentProductDetails; // Holds the product details for use in various functions
 
-		if (productDetails) {
+	$(document).on("click", ".view-product-details", function () {
+		const productId = $(this).closest("[data-product-id]").data("productId");
+		console.log(productId);
+		currentProductDetails = productsData.products.find((product) => product.id === productId);
+
+		if (currentProductDetails) {
 			// Populate modal with product details
-			$("#productImage").attr("src", productDetails.image);
-			$("#productTitle").text(productDetails.name);
-			$("#productPrice").text("$" + productDetails.price.toFixed(2));
-			$("#productDescription").text(productDetails.description);
+			$("#productImage").attr("src", currentProductDetails.image);
+			$("#productTitle").text(currentProductDetails.name);
+			$("#productPrice").text("$" + currentProductDetails.price.toFixed(2));
+			$("#productDescription").text(currentProductDetails.description);
 
 			const $featuresList = $("#productFeatures");
 			$featuresList.empty();
 
-			productDetails.features.forEach(function (feature) {
-				$featuresList.append(`<li class=('text-light')>${feature}</li>`);
+			currentProductDetails.features.forEach(function (feature) {
+				$featuresList.append(`<li class="text-light">${feature}</li>`);
 			});
 
+			$("#modalProductPrice").text("$" + currentProductDetails.price.toFixed(2));
+
+			// Show the modal
 			$("#product-detail-modal").modal("show");
 		}
 	});
 
-	//listeners for increment/decrement buttons
+	// Listener for increment button
 	$("#incrementButton").click(function () {
-		const value = parseInt($("#quantityInput").val());
-		$("#quantityInput").val(value + 1);
+		var quantity = parseInt($("#quantityInput").val());
+		quantity = isNaN(quantity) ? 0 : quantity;
+		quantity++; // Increment
+		$("#quantityInput").val(quantity);
+		$("#modalProductPrice").text("$" + (currentProductDetails.price * quantity).toFixed(2));
 	});
 
+	// Listener for decrement button
 	$("#decrementButton").click(function () {
-		const value = parseInt($("#quantityInput").val());
-		if (value > 1) {
-			$("#quantityInput").val(value - 1);
+		var quantity = parseInt($("#quantityInput").val());
+		if (quantity > 1) {
+			quantity--; // Decrement but not below 1
 		}
-		$("#modalProductPrice").text("$" + (productDetails.price * value).toFixed(2));
+		$("#quantityInput").val(quantity);
+		$("#modalProductPrice").text("$" + (currentProductDetails.price * quantity).toFixed(2));
 	});
 
 	$("#addToCartButton").click(function () {
-		const productTitle = $("#productTitle").text();
-		const productPrice = $("#modalProductPrice").text();
-		const quantity = $("#quantityInput").val();
+		const quantity = parseInt($("#quantityInput").val());
+		const productPrice = parseFloat(currentProductDetails.price.toFixed(2));
+		const totalPrice = productPrice * quantity;
 
-		const totalPrice = parseFloat(productPrice.replace("$", "")) * parseInt(quantity);
-
-		$("#cartItems").append(`
+		const cartItemHtml = `
         <tr>
-            <td>${productTitle}</td>
-            <td>${productPrice}</td>
+            <td>${currentProductDetails.name}</td>
+            <td>$${productPrice.toFixed(2)}</td>
             <td>${quantity}</td>
             <td>$${totalPrice.toFixed(2)}</td>
             <td><button class="btn btn-danger remove-item">Remove</button></td>
         </tr>
-    `);
+    `;
 
-		$("#quantityInput").val("1");
-		$("#product-detail-modal").modal("hide");
+		$("#cartItems").append(cartItemHtml); // Append new row to cart
+
+		updateCartTotal(); // Update cart total function (defined below)
+
+		$("#quantityInput").val("1"); // Reset quantity input
+		$("#modalProductPrice").text(productPrice.toFixed(2)); // Reset modal price
+		$("#product-detail-modal").modal("hide"); // Hide modal
 	});
 
-	// Remove item from cart
-	$(document).on("click", ".remove-item", function () {
-		$(this).closest("tr").remove();
+	function updateCartTotal() {
+		var cartTotal = 0;
+		$("#cartItems tr").each(function () {
+			var lineTotal = parseFloat($(this).find("td:nth-child(4)").text().replace("$", ""));
+			cartTotal += lineTotal;
+		});
+		$("#cartTotal").text(cartTotal.toFixed(2));
+	}
+
+	$("#shopping-cart").on("click", ".remove-item", function () {
+		$(this).closest("tr").remove(); // Remove item from cart
+		updateCartTotal(); // Update cart total after removing an item
 	});
 
 	$('a[data-bs-target="#shopping-cart"]').click(function (e) {
@@ -193,6 +208,21 @@ $(document).ready(function () {
 	populateSelect("ramSelect", "Memory");
 	populateSelect("ssdSelect", "SSD");
 	populateSelect("powerSelect", "Power Supply");
+});
+
+document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+	anchor.addEventListener("click", function (e) {
+		var href = this.getAttribute("href");
+		// Check if the href value is more than just "#"
+		if (href.length > 1 && document.querySelector(href)) {
+			e.preventDefault();
+
+			// Scroll smoothly to the target element
+			document.querySelector(href).scrollIntoView({
+				behavior: "smooth",
+			});
+		}
+	});
 });
 
 /** @format */
@@ -260,7 +290,7 @@ const productsData = {
 			brand: "ASUS",
 			category: "Motherboards",
 			price: 1249.99,
-			image: "_resources/images/products/asus-rog-rampage-mother.jpg",
+			image: "_resources/images/products/asus-rog-rampage-mother.webp",
 			description: "A flagship motherboard built for extreme performance and gaming.",
 			stock: 10,
 			ratings: {

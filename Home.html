@@ -107,14 +107,18 @@
 										<div class="collapse" id="categories-submenu">
 											<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ms-2 my-auto border-primary">
 												<li>
-													<a class="dropdown-item-all text-light-bold" href="#" data-type="category" data-filter=""
+													<a
+														class="dropdown-item-all text-light-bold"
+														href="#see-it"
+														data-type="category"
+														data-filter=""
 														>All</a
 													>
 												</li>
 												<li>
 													<a
 														class="dropdown-item text-light-bold"
-														href="#productCarousel"
+														href="#"
 														data-type="category"
 														data-filter="Processors"
 														>Processors</a
@@ -593,13 +597,13 @@
 					<div class="modal-body bg-secondary">
 						<div class="text-center text-light">
 							<p>Login with:</p>
-							<a href="#" class="btn btn-outline btn-block mb-2" style="background-color: #3b5998">
+							<a href="#" class="btn btn-outline btn-block mb-2" style="background-color: #3b5998; color: white">
 								<i class="fab fa-facebook-f"></i> Facebook
 							</a>
-							<a href="#" class="btn btn-outline-danger btn-block mb-2" style="background-color: #dd4b39">
+							<a href="#" class="btn btn-outline-danger btn-block mb-2" style="background-color: #dd4b39; color: white">
 								<i class="fab fa-google"></i> Google
 							</a>
-							<a href="#" class="btn btn-outline-info btn-block mb-2" style="background-color: #55acee">
+							<a href="#" class="btn btn-outline-info btn-block mb-2" style="background-color: #55acee; color: white">
 								<i class="fab fa-twitter"></i> Twitter
 							</a>
 
@@ -608,7 +612,7 @@
 
 						<form>
 							<div class="form-group">
-								<label for="username ">Username or Email</label>
+								<label for="username">Username or Email</label>
 								<input
 									type="text"
 									class="form-control text-light bg-primary login-input"
@@ -706,62 +710,215 @@
 		</section>
 
 		<!--Shopping cart section-->
-		<div id="shopping-cart" class="cart-section">
-			<section class="bg-primary shopping-cart py-5">
-				<div class="card bg-secondary container">
-					<h2 class="text-light p-4">Your Cart</h2>
+		<div id="shopping-cart" class="cart-section bg-primary container-fluid">
+			<section class="shopping-cart py-5">
+				<div class="container">
+					<div class="row">
+						<!-- Shopping Cart Card -->
+						<div class="col-md-6">
+							<div class="card bg-secondary mb-3">
+								<h2 class="text-light p-4">Your Cart</h2>
 
-					<table class="table table-dark bg-secondary">
-						<thead>
-							<tr>
-								<th scope="col">Product</th>
-								<th scope="col">Price</th>
-								<th scope="col">Quantity</th>
-								<th scope="col">Total</th>
-								<th scope="col">Actions</th>
-							</tr>
-						</thead>
+								<table class="table table-dark bg-secondary">
+									<thead>
+										<tr>
+											<th scope="col">Product</th>
+											<th scope="col">Price</th>
+											<th scope="col">Quantity</th>
+											<th scope="col">Total</th>
+											<th scope="col">Actions</th>
+										</tr>
+									</thead>
 
-						<tbody></tbody>
+									<tbody id="cartItems"></tbody>
 
-						<tfoot class="d-flex">
-							<tr>
-								<td class="flex-end" colspan="5" class="text-right">
-									<h5>Total: $<span id="cartTotal">0</span></h5>
-									<button id="checkoutButton" class="btn btn-success">Checkout</button>
+									<tfoot>
+										<tr>
+											<td colspan="3"></td>
+											<td colspan="2" class="text-right">
+												<h5>Total: $<span id="cartTotal">0</span></h5>
+											</td>
+										</tr>
+										<tr>
+											<td colspan="2" class="text-left">
+												<a href="#" class="btn btn-pill-light"><i class="fas fa-chevron-left"></i> Continue Shopping</a>
+											</td>
+											<td colspan="3" class="text-right">
+												<button id="checkoutButton" class="btn btn-success text-primary-bold">Checkout</button>
+											</td>
+										</tr>
+									</tfoot>
+								</table>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="card bg-success rounder-3">
+								<h2 class="text-primary-bold p-4">Shipping Information</h2>
+								<div class="card-body">
+									<form id="shippingForm">
+										<div class="mb-3">
+											<label for="first-name" class="form-label text-primary-bold">First Name</label>
+											<input class="form-select text-primary input-black-line" id="first-name" required />
+										</div>
+										<div class="mb-3">
+											<label for="last-name" class="form-label text-primary-bold">Last Name</label>
+											<input class="form-select text-primary input-black-line" id="last-name" required />
+										</div>
+										<div class="mb-3">
+											<label for="email" class="form-label text-primary-bold">Email</label>
+											<input class="form-select text-primary input-black-line" id="email" required />
+										</div>
+										<div class="mb-3">
+											<label for="phone" class="form-label text-primary-bold">Primary Phone</label>
+											<input class="form-select text-primary input-black-line" id="phone" required />
+										</div>
 
-									<a href="#" class="btn btn-primary">Continue Shopping</a>
-								</td>
-							</tr>
-						</tfoot>
-					</table>
-				</div>
+										<div class="mb-3">
+											<label for="address" class="form-label text-primary-bold">Address</label>
+											<input class="form-select text-primary input-black-line" id="address" required />
+										</div>
+										<div class="mb-3">
+											<label for="city" class="form-label text-primary-bold">City</label>
+											<input class="form-select text-primary input-black-line" id="city" required />
+										</div>
+										<div class="mb-3">
+											<label for="state" class="form-label text-primary-bold">State</label>
+											<select class="form-select text-primary" id="state" required>
+												<option selected value="">Please Select a State...</option>
+												<option value="AL">Alabama</option>
+												<option value="AK">Alaska</option>
+												<option value="AZ">Arizona</option>
+												<option value="AR">Arkansas</option>
+												<option value="CA">California</option>
+												<option value="CO">Colorado</option>
+												<option value="CT">Connecticut</option>
+												<option value="DE">Delaware</option>
+												<option value="DC">District Of Columbia</option>
+												<option value="FL">Florida</option>
+												<option value="GA">Georgia</option>
+												<option value="HI">Hawaii</option>
+												<option value="ID">Idaho</option>
+												<option value="IL">Illinois</option>
+												<option value="IN">Indiana</option>
+												<option value="IA">Iowa</option>
+												<option value="KS">Kansas</option>
+												<option value="KY">Kentucky</option>
+												<option value="LA">Louisiana</option>
+												<option value="ME">Maine</option>
+												<option value="MD">Maryland</option>
+												<option value="MA">Massachusetts</option>
+												<option value="MI">Michigan</option>
+												<option value="MN">Minnesota</option>
+												<option value="MS">Mississippi</option>
+												<option value="MO">Missouri</option>
+												<option value="MT">Montana</option>
+												<option value="NE">Nebraska</option>
+												<option value="NV">Nevada</option>
+												<option value="NH">New Hampshire</option>
+												<option value="NJ">New Jersey</option>
+												<option value="NM">New Mexico</option>
+												<option value="NY">New York</option>
+												<option value="NC">North Carolina</option>
+												<option value="ND">North Dakota</option>
+												<option value="OH">Ohio</option>
+												<option value="OK">Oklahoma</option>
+												<option value="OR">Oregon</option>
+												<option value="PA">Pennsylvania</option>
+												<option value="RI">Rhode Island</option>
+												<option value="SC">South Carolina</option>
+												<option value="SD">South Dakota</option>
+												<option value="TN">Tennessee</option>
+												<option value="TX">Texas</option>
+												<option value="UT">Utah</option>
+												<option value="VT">Vermont</option>
+												<option value="VA">Virginia</option>
+												<option value="WA">Washington</option>
+												<option value="WV">West Virginia</option>
+												<option value="WI">Wisconsin</option>
+												<option value="WY">Wyoming</option>
+											</select>
+										</div>
+										<div class="mb-3">
+											<label for="zip" class="form-label text-primary-bold">Zip</label>
+											<input class="form-select text-primary input-black-line" id="zip" required />
+										</div>
+										<div class="mb-3">
+											<label for="country" class="form-label text-primary-bold">Country</label>
+											<select class="form-select text-primary" id="country" required>
+												<option selected value="">Please Select a Country...</option>
+												<option value="US">United States</option>
+												<option value="CA">Canada</option>
+												<option value="AU">Australia</option>
+												<option value="AT">Austria</option>
+												<option value="BE">Belgium</option>
+												<option value="BG">Bulgaria</option>
+												<option value="HR">Croatia</option>
+												<option value="CY">Cyprus</option>
+												<option value="CZ">Czech Republic</option>
+												<option value="DK">Denmark</option>
+												<option value="EE">Estonia</option>
+												<option value="FI">Finland</option>
+												<option value="FR">France</option>
+												<option value="DE">Germany</option>
+												<option value="GR">Greece</option>
+												<option value="HU">Hungary</option>
+												<option value="IE">Ireland</option>
+												<option value="IT">Italy</option>
+												<option value="LV">Latvia</option>
+												<option value="LT">Lithuania</option>
+												<option value="LU">Luxembourg</option>
+												<option value="MT">Malta</option>
+												<option value="NL">Netherlands</option>
+												<option value="PL">Poland</option>
+												<option value="PT">Portugal</option>
+												<option value="RO">Romania</option>
+												<option value="SK">Slovakia</option>
+												<option value="SI">Slovenia</option>
+												<option value="ES">Spain</option>
+												<option value="SE">Sweden</option>
+												<option value="CH">Switzerland</option>
+												<option value="TR">Turkey</option>
+												<option value="GB">United Kingdom</option>
+											</select>
+										</div>
+										<div class="mb-3">
+											<input type="checkbox" class="text-primary select-input" id="billing-addy" />
+											<label for="billing-addy" class="checkbox text-primary-bold">Same as Billing Address?</label>
+										</div>
 
-				<div class="cart-total-wrapper">
-					<h3>Cart Total</h3>
+										<div class="text-center">
+											<button type="submit" class="btn btn-pill-light text-primary-bold mt-3">
+												Continue to Payment >
+											</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</section>
 		</div>
 
 		<!-- Hero Section -->
-		<section
-			class="bg-image text-left text-light py-5"
-			style="
-				background: url('_resources/images/products/ek-fluid-gaming-digital-reef-art-1.webp') no-repeat center bottom;
-				background-size: cover;
-				background-position: bottom calc(100% - 10%);
-				height: 25vw;
-			">
-			<div class="container pt-5">
-				<div class="row">
-					<div class="col-lg-12 mx-auto pt-5">
-						<h1 class="display-4 pt-5">Welcome to Our Store!</h1>
-						<p class="lead">Check out our latest collection below.</p>
-					</div>
+		<div class="container-fluid d-none d-md-block hero-image bg-primary">
+			<div class="row hero-text pt-5">
+				<div class="col-lg-12 text-left text-light mx-auto">
+					<h1 class="display-4 pt-3">Welcome to Our Store!</h1>
+					<p class="lead">Check out our latest collection below.</p>
 				</div>
 			</div>
-		</section>
-		<div class="container-fluid bg-primary mb-2">
+		</div>
+		<div class="container-fluid d-md-none d-sm-flex hero-image-sm bg-primary">
+			<div class="row hero-text-sm">
+				<div class="col-12 text-light mx-auto">
+					<h4>Welcome to Our Store!</h4>
+					<p class="lead">Check out our latest collection below.</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="container-fluid bg-primary mb-4" id="carousel">
 			<!-- Carousel -->
 			<div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
 				<div class="carousel-inner"></div>
