@@ -7,7 +7,7 @@ const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
 	entry: "./_resources/js/site.js",
-
+	mode: "development",
 	output: {
 		path: path.resolve(__dirname, "dist"),
 		filename: "js/bundle.js",
@@ -15,6 +15,11 @@ module.exports = {
 
 	module: {
 		rules: [
+			// Combined rule for CSS and SCSS
+			{
+				test: /\.(sa|sc|c)ss$/,
+				use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+			},
 			{
 				test: /\.m?js$/,
 				exclude: /node_modules/,
@@ -24,10 +29,6 @@ module.exports = {
 						presets: ["@babel/preset-env"],
 					},
 				},
-			},
-			{
-				test: /\.scss$/,
-				use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
 			},
 			{
 				test: /\.(png|svg|jpg|jpeg|gif|webp)$/i,
@@ -48,16 +49,16 @@ module.exports = {
 
 	plugins: [
 		new MiniCssExtractPlugin({
-			filename: "css/[name].css",
+			filename: "_resources/css/custom-styles.css",
 		}),
-		new HtmlWebpackPlugin({
-			template: "./index.html",
-			filename: "index.html",
-		}),
-		new HtmlWebpackPlugin({
-			template: "./Home.html",
-			filename: "Home.html",
-		}),
+		// Adding multiple instances of HtmlWebpackPlugin will handle all html files
+		...["index.html", "Home.html"].map(
+			(template) =>
+				new HtmlWebpackPlugin({
+					template: `./${template}`,
+					filename: template,
+				})
+		),
 		new CopyPlugin({
 			patterns: [{ from: "_resources/images", to: "images" }],
 		}),

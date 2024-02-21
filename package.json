@@ -5,7 +5,7 @@
 	"main": "index.js",
 	"scripts": {
 		"build": "npm run sass-compile && webpack --config webpack.config.js",
-		"sass-compile": "sass _resources/css/_custom-styles.scss _resources/css/custom-styles.css",
+		"sass": "sass _resources/css/_custom-styles.scss _resources/css/custom-styles.css --watch",
 		"deploy": "gh-pages -d dist",
 		"start": "webpack-dev-server --open"
 	},
@@ -25,5 +25,8 @@
 		"webpack": "^5.90.1",
 		"webpack-cli": "^5.1.4",
 		"webpack-dev-server": "^5.0.1"
+	},
+	"dependencies": {
+		"bootstrap": "^5.3.2"
 	}
 }

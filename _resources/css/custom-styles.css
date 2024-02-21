@@ -1,6 +1,12 @@
 /** @format */
+html,
 body {
-  overflow-x: hidden;
+  height: 100%;
+  margin: 0;
+}
+
+main {
+  min-height: calc(100vh - 70px - 30px);
 }
 
 .container {
@@ -100,6 +106,8 @@ a.nav-link.text-light-bold.main-nav-menu-item:focus {
   border-color: #0ee636;
   transition: background-color 0.3s ease, border-color 0.3s ease;
   border-radius: 50rem;
+  color: white;
+  font-weight: bold;
 }
 .btn-success:hover {
   background-color: #0bb62b;
@@ -107,6 +115,23 @@ a.nav-link.text-light-bold.main-nav-menu-item:focus {
   transform: translateY(-5px);
 }
 .btn-success:active {
+  transform: scale(0.9);
+}
+
+.btn-success-2 {
+  background-color: #0ee636;
+  border-color: #0ee636;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  border-radius: 50rem;
+  color: #161616;
+  font-weight: bold;
+}
+.btn-success-2:hover {
+  background-color: #0bb62b;
+  border-color: #0bb62b;
+  transform: translateY(-5px);
+}
+.btn-success-2:active {
   transform: scale(0.9);
 }
 
@@ -288,26 +313,23 @@ select.select-input:focus[icon] {
 .hero-image-sm {
   background: url("../images/products/ek-fluid-gaming-digital-reef-art-1.webp") no-repeat bottom;
   background-size: cover;
-  position: relative; /* This is important for absolute positioning inside */
-  height: 15vh; /* You can adjust this height as needed */
+  position: relative;
+  height: 15vh;
 }
 
 .product-card .card-img-contain {
-  /* Set a specific height for the image container */
-  height: 220px; /* adjust as needed */
-  /* Optional: set a maximum width for the image if required */
-  max-width: 100%; /* this ensures that the image container doesn't exceed its parent width */
-  /* Center content */
+  height: 220px;
+  max-width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .product-card .card-img-top {
-  width: auto; /* this will maintain the image width based on its aspect ratio */
-  max-width: 100%; /* ensure it's no wider than the container */
-  height: 100%; /* this will take up the full height of the container */
-  object-fit: cover; /* this will make sure the image covers the area, cropping if necessary */
+  width: auto;
+  max-width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .icon-success {
@@ -326,10 +348,9 @@ select.select-input:focus[icon] {
   max-height: 250px;
   max-width: 250px;
   object-fit: contain;
-  margin: auto; /* Centers the image within the padding */
+  margin: auto;
 }
 
-/* Place this in your CSS file */
 .modal.pill {
   border-radius: 50px;
 }
@@ -353,7 +374,8 @@ select.select-input:focus[icon] {
 
 #shopping-cart,
 #pc-builder,
-#support-section {
+#support-section,
+#blog-section {
   display: none;
 }
 
@@ -362,6 +384,13 @@ select.select-input:focus[icon] {
   border: none;
   border-bottom: 1px solid black;
   box-shadow: none;
+}
+
+.cartImage {
+  width: 50px;
+  height: 50px;
+  display: block;
+  border-radius: 10px;
 }
 
 /*# sourceMappingURL=custom-styles.css.map */

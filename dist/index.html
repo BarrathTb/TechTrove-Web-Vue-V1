@@ -1,1 +1,331 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/><link rel="stylesheet" href=""/><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"/><link rel="stylesheet" href="Home.html"/><link rel="stylesheet" href="_resources/css/custom-styles.css"/><title>barrathtb-bootstrap-landing-page</title><script defer="defer" src="js/bundle.js"></script></head><body class="m-0"><header class=""><div class="header-main mx-auto w-100 h-100"><nav class="navbar bg-body-secondary bg-secondary"><div class="container-lg mx-auto"><a class="navbar-brand me-5" href="#"><img src="_resources/images/TechTrove-logo.png" alt="TechTrove logo" width="250" height="53"/></a><ul class="nav nav-tabs d-none d-lg-flex mx-2"><li class="nav-item left-tab border-none"><a class="nav-link dropdown-toggle active text-light-bold main-nav-menu-item" href="Home.html" role="button" aria-expanded="true">VIEW PRODUCTS</a></li><li class="nav-item left-tab border-none"><a class="nav-link dropdown-toggle active text-light-bold main-nav-menu-item" title="login" href="#" data-bs-toggle="modal" data-bs-target="#login-modal">LOGIN</a></li><li><hr class="dropdown-divider text-light"/></li></ul><button class="btn btn-success d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation"><i class="fas fa-bars"></i></button><div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel"><div class="offcanvas-header bg-primary"><h5 class="offcanvas-title" id="offcanvasNavbarLabel"></h5><button type="button" class="btn btn-success" data-bs-dismiss="offcanvas" aria-label="Close"><i class="fas fa-close fa-lg"></i></button></div><div class="offcanvas-body bg-secondary"><ul class="navbar-nav bg-secondary"><hr class="dropdown-menu-divider text-light"/><li class="nav-item dropdown text-light"><a class="nav-link active text-light ms-2 my-auto" href="Home.html" role="button" aria-expanded="true">PRODUCTS</a><hr class="dropdown-menu-divider text-light"/></li><li class="nav-item dropdown"><a class="nav-link active text-light ms-2" title="login" href="#" data-bs-toggle="modal" data-bs-target="#login-modal">LOGIN</a><hr class="dropdown-menu-divider text-light"/></li></ul></div></div></div></nav></div></header><div class="modal fade" id="login-modal" role="dialog" aria-labelledby="login-modal-area" aria-hidden="true"><div class="modal-dialog text-light" role="login-area"><div class="modal-content"><div class="modal-header bg-primary"><h5 class="modal-title" id="login-modal-area">Login to Your Account</h5><button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><i class="fas fa-close"></i></button></div><div class="modal-body bg-secondary"><div class="text-center text-light"><p>Login with:</p><a href="#" class="btn btn-outline btn-block mb-2" style="background-color: #3b5998"><i class="fab fa-facebook-f"></i> Facebook </a><a href="#" class="btn btn-outline-danger btn-block mb-2" style="background-color: #dd4b39"><i class="fab fa-google"></i> Google </a><a href="#" class="btn btn-outline-info btn-block mb-2" style="background-color: #55acee"><i class="fab fa-twitter"></i> Twitter</a><hr/></div><form><div class="form-group"><label for="username ">Username or Email</label> <input class="form-control text-light bg-primary login-input" id="username" placeholder="Enter username or email"/></div><div class="form-group"><label for="password">Password</label> <input type="password" class="form-control text-light bg-primary login-input" id="password" placeholder="Password" autocomplete="current-password"/></div><div class="form-check"><input type="checkbox" class="form-check-input" id="rememberMe"/> <label class="form-check-label" for="rememberMe">Remember me</label></div></form></div><div class="modal-footer bg-primary"><button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button> <button type="submit" class="btn btn-outline-success">Login</button></div></div></div></div><div class="container-fluid welcome-container bg-primary" id="welcome-section"><div class="row align-items-center mb-4 bg-primary p-4"><div class="col-auto"><img src="_resources/images/tech-entry-1.png" alt="Entry Image for TechTrove" class="img-fluid entry-image"/></div><div class="col-8"><h1 class="ms-3 text-light">Find the perfect computer parts at Tech Trove!</h1></div></div><div class="row align-items-center p-4"><div class="col-8"><input class="form-control search-input" placeholder="Search..."/></div><div class="col-auto"><img src="_resources/images/tech-entry-2.png" alt="Another Image Description" class="img-fluid entry-image"/></div></div></div><footer class="bg-secondary"><div class="row g-4 justify-content-center"><div class="col-xs-12 col-md-6 mb-2 text-center text-md-start"><p class="text-light">Follow us on social media:</p><a href="#" class="mx-2"><i class="fab fa-facebook-f"></i> </a><a href="#" class="mx-2"><i class="fab fa-twitter"></i> </a><a href="#" class="mx-2"><i class="fab fa-instagram"></i> </a><a href="#" class="mx-2"><i class="fab fa-youtube"></i></a></div></div></footer><script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script><script src="_resources/js/site.js"></script><script async src="https://cdn.jsdelivr.net/npm/es-module-shims@1/dist/es-module-shims.min.js" crossorigin="anonymous"></script></body></html>
+<!-- @format -->
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+		<link rel="stylesheet" href="" />
+		<link
+			type="text/css"
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+			crossorigin="anonymous" />
+		<link rel="stylesheet" href="Home.html" />
+		<link rel="stylesheet" href="_resources/css/custom-styles.css" />
+
+		<title>barrathtb-bootstrap-landing-page</title>
+	<script defer src="js/bundle.js"></script></head>
+
+	<body class="m-0">
+		<style>
+			.accordion {
+				--bs-accordion-btn-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+				--bs-accordion-btn-active-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+			}
+		</style>
+		<header class="">
+			<!-- Top bar -->
+
+			<!-- Main navbar -->
+			<div class="header-main mx-auto w-100 h-100">
+				<nav class="navbar bg-body-secondary bg-secondary">
+					<div class="container-lg mx-auto">
+						<a class="navbar-brand me-5" href="#"
+							><img src="_resources/images/TechTrove-logo.png" alt="TechTrove logo" width="250" height="53"
+						/></a>
+
+						<ul class="nav nav-tabs d-none d-lg-flex mx-2">
+							<li class="nav-item left-tab border-none">
+								<a
+									class="nav-link dropdown-toggle active text-light-bold main-nav-menu-item"
+									href="Home.html"
+									role="button"
+									aria-expanded="true">
+									VIEW PRODUCTS
+								</a>
+							</li>
+							<li class="nav-item left-tab border-none">
+								<a
+									class="nav-link dropdown-toggle active text-light-bold main-nav-menu-item"
+									title="login"
+									href="#"
+									data-bs-toggle="modal"
+									data-bs-target="#login-modal">
+									LOGIN
+								</a>
+							</li>
+
+							<li>
+								<hr class="dropdown-divider text-light" />
+							</li>
+						</ul>
+
+						<!-- Toggler for offcanvas view on smaller screens -->
+						<button
+							class="btn btn-success d-lg-none"
+							type="button"
+							data-bs-toggle="offcanvas"
+							data-bs-target="#offcanvasNavbar"
+							aria-controls="offcanvasNavbar"
+							aria-label="Toggle navigation">
+							<i class="fas fa-bars"></i>
+						</button>
+						<div
+							class="offcanvas offcanvas-end"
+							tabindex="-1"
+							id="offcanvasNavbar"
+							aria-labelledby="offcanvasNavbarLabel">
+							<div class="offcanvas-header bg-primary">
+								<h5 class="offcanvas-title" id="offcanvasNavbarLabel"></h5>
+								<button type="button" class="btn btn-success" data-bs-dismiss="offcanvas" aria-label="Close">
+									<i class="fas fa-close fa-lg"></i>
+								</button>
+							</div>
+
+							<!-- Offcanvas view for smaller screens -->
+							<div class="offcanvas-body bg-secondary">
+								<ul class="navbar-nav bg-secondary">
+									<hr class="dropdown-menu-divider text-light" />
+									<li class="nav-item dropdown text-light">
+										<a
+											class="nav-link active text-light ms-2 my-auto"
+											href="Home.html"
+											role="button"
+											aria-expanded="true">
+											PRODUCTS
+										</a>
+
+										<hr class="dropdown-menu-divider text-light" />
+									</li>
+
+									<li class="nav-item dropdown">
+										<a
+											class="nav-link active text-light ms-2"
+											title="login"
+											href="#"
+											data-bs-toggle="modal"
+											data-bs-target="#login-modal">
+											LOGIN
+										</a>
+
+										<hr class="dropdown-menu-divider text-light" />
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</nav>
+			</div>
+		</header>
+		<!--  Header End -->
+
+		<!-- Modal -->
+		<div class="modal fade" id="login-modal" role="dialog" aria-labelledby="login-modal-area" aria-hidden="true">
+			<div class="modal-dialog text-light" role="login-area">
+				<div class="modal-content">
+					<div class="modal-header bg-primary">
+						<h5 class="modal-title" id="login-modal-area">Login to Your Account</h5>
+						<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+							<i class="fas fa-close"></i>
+						</button>
+					</div>
+					<div class="modal-body bg-secondary">
+						<div class="text-center text-light">
+							<p>Login with:</p>
+							<a href="#" class="btn btn-outline btn-block mb-2" style="background-color: #3b5998">
+								<i class="fab fa-facebook-f"></i> Facebook
+							</a>
+							<a href="#" class="btn btn-outline-danger btn-block mb-2" style="background-color: #dd4b39">
+								<i class="fab fa-google"></i> Google
+							</a>
+							<a href="#" class="btn btn-outline-info btn-block mb-2" style="background-color: #55acee">
+								<i class="fab fa-twitter"></i> Twitter
+							</a>
+
+							<hr />
+						</div>
+
+						<!-- Login Form modal -->
+						<form>
+							<div class="form-group">
+								<label for="username ">Username or Email</label>
+								<input
+									type="text"
+									class="form-control text-light bg-primary login-input"
+									id="username"
+									placeholder="Enter username or email" />
+							</div>
+							<div class="form-group">
+								<label for="password">Password</label>
+								<input
+									type="password"
+									class="form-control text-light bg-primary login-input"
+									id="password"
+									placeholder="Password"
+									autocomplete="current-password" />
+							</div>
+							<div class="form-check">
+								<input type="checkbox" class="form-check-input" id="rememberMe" />
+								<label class="form-check-label" for="rememberMe">Remember me</label>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer bg-primary">
+						<button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
+						<button type="submit" class="btn btn-outline-success">Login</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container-fluid bg-primary">
+			<div class="container-lg welcome-container bg-primary justify-content-center" id="welcome-section">
+				<div class="row align-items-center mb-4 bg-primary p-4">
+					<div class="col-auto">
+						<img
+							src="_resources/images/tech-entry-1.png"
+							alt="Entry Image for TechTrove"
+							class="img-fluid entry-image" />
+					</div>
+					<div class="col-8">
+						<h1 class="ms-3 text-light">Find the perfect computer parts at Tech Trove!</h1>
+					</div>
+				</div>
+
+				<div class="row align-items-center p-4">
+					<div class="col-9">
+						<input type="text" class="form-control search-input" placeholder="Search for quality computer parts..." />
+					</div>
+					<div class="col-auto">
+						<img
+							src="_resources/images/tech-entry-2.png"
+							alt="Another Image Description"
+							class="img-fluid entry-image" />
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="container-fluid welcome-container-two bg-primary" id="welcome-section-accordian">
+			<div class="col-12 mb-4">
+				<section class="accordion accordion-flush me-2 bg-primary" id="accordian-one">
+					<div class="accordion-item bg-primary">
+						<button
+							class="accordion-button d-flex justify-content-between collapsed white-icon text-light"
+							type="button"
+							data-bs-toggle="collapse"
+							data-bs-target="#collapseCEST"
+							aria-expanded="false"
+							aria-controls="collapseCEST">
+							How it Works
+						</button>
+
+						<div class="accordion-collapse collapse me-2" id="collapseCEST" data-bs-parent="#accordian-one">
+							<div class="accordion-body bg-primary">
+								<div class="row align-items-center mb-4 bg-primary p-4 justify-content-between">
+									<div class="col-lg-4 col-md-6 col-sm-12">
+										<div class="card product-card h-100 bg-secondary d-flex flex-column">
+											<a href="#" class="product-detail mt-2 me-2 ms-auto product-detail-icon"> </a>
+											<img
+												src="_resources/images/tech-entry-3.png"
+												class="card-img-top img-fluid"
+												alt="display tech image" />
+											<div class="card-body text-light flex-grow-1 d-flex flex-column justify-content-between pb-1">
+												<h5 class="card-title text-center font-size-md">Step 1</h5>
+												<p class="card-text text-center font-size-sm">
+													Search for the computer parts you need. Find the best deals and quality products.
+												</p>
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-6 col-sm-12">
+										<div class="card product-card h-100 bg-secondary d-flex flex-column">
+											<a href="#" class="product-detail mt-2 me-2 ms-auto product-detail-icon"> </a>
+											<img
+												src="_resources/images/tech-entry-4.png"
+												class="card-img-top img-fluid"
+												alt="display tech image" />
+											<div class="card-body text-light flex-grow-1 d-flex flex-column justify-content-between pb-1">
+												<h5 class="card-title text-center font-size-md">Step 2</h5>
+												<p class="card-text text-left font-size-sm">
+													Click ona product card for more details. Add products to your cart, and customize your order.
+												</p>
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-6 col-sm-12">
+										<div class="card product-card h-100 bg-secondary d-flex flex-column">
+											<a href="#" class="product-detail mt-2 me-2 ms-auto product-detail-icon"> </a>
+											<img
+												src="_resources/images/tech-entry-5.png"
+												class="card-img-top img-fluid"
+												alt="display tech image" />
+											<div class="card-body text-light flex-grow-1 d-flex flex-column justify-content-between pb-1">
+												<h5 class="card-title text-center font-size-md">Step 3</h5>
+												<p class="card-text text-left font-size-sm">
+													Review your cart and make any changes, proceed to checkout when ready. Don't forget to try the
+													pc builder to make your dream pc come to life.
+												</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+			<div class="row align-items-center mb-4 bg-primary p-4 justify-content-center">
+				<div class="col-lg-8 col-md-10 col-sm-12">
+					<div class="card product-card h-100 bg-secondary d-flex flex-column">
+						<a href="#" class="product-detail mt-2 me-2 ms-auto product-detail-icon"> </a>
+						<img src="_resources/images/tech-entry-7.png" class="card-img-top img-fluid" alt="display tech image" />
+						<div class="card-body text-light flex-grow-1 d-flex flex-column justify-content-between pb-1">
+							<h5 class="card-title text-center font-size-md">Shop with ease!</h5>
+							<p class="card-text text-left font-size-sm">
+								Get the best computer parts for any situation. Find the best deals and quality products. Download our
+								app below.
+							</p>
+							<button type="submit" class="btn btn-success">Download the App</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<footer class="bg-secondary">
+			<div class="row g-4 justify-content-center">
+				<div class="col-xs-12 col-md-6 mb-2 text-center text-md-start">
+					<p class="text-light">Follow us on social media:</p>
+
+					<a href="#" class="mx-2">
+						<i class="fab fa-facebook-f"></i>
+					</a>
+					<a href="#" class="mx-2">
+						<i class="fab fa-twitter"></i>
+					</a>
+					<a href="#" class="mx-2">
+						<i class="fab fa-instagram"></i>
+					</a>
+					<a href="#" class="mx-2">
+						<i class="fab fa-youtube"></i>
+					</a>
+				</div>
+			</div>
+		</footer>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+			crossorigin="anonymous"></script>
+
+		<script src="_resources/js/site.js"></script>
+		<script
+			async
+			src="https://cdn.jsdelivr.net/npm/es-module-shims@1/dist/es-module-shims.min.js"
+			crossorigin="anonymous"></script>
+	</body>
+</html>

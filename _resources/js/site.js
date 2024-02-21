@@ -1,5 +1,6 @@
 /** @format */
 
+// import "../css/custom-styles.css";
 $(document).ready(function () {
 	//create a product card for the carousel
 	function createProductCard(products) {
@@ -12,7 +13,7 @@ $(document).ready(function () {
 										<div class="card-body text-light flex-grow-1 d-flex flex-column justify-content-between pb-1">
                         <h5 class="card-title text-center font-size-md">${products.name}</h5>
                         <p class="card-text text-left font-size-sm">${products.description}</p>
-                        <a href="#product-detail-modal" class="btn btn-success view-product-details">View Product Details</a>
+                        <a href="#product-detail-modal" class="btn btn-success-2 view-product-details">View Product Details</a>
                     </div>
                 </div>
             </div>`;
@@ -129,12 +130,14 @@ $(document).ready(function () {
 	});
 
 	$("#addToCartButton").click(function () {
+		const imageCart = $("#productImage").attr("src");
 		const quantity = parseInt($("#quantityInput").val());
 		const productPrice = parseFloat(currentProductDetails.price.toFixed(2));
 		const totalPrice = productPrice * quantity;
 
 		const cartItemHtml = `
         <tr>
+						<td><img class="cartImage" src="${imageCart}" alt="${currentProductDetails.name}"></td>
             <td>${currentProductDetails.name}</td>
             <td>$${productPrice.toFixed(2)}</td>
             <td>${quantity}</td>
@@ -153,46 +156,37 @@ $(document).ready(function () {
 	});
 
 	function updateCartTotal() {
-		var cartTotal = 0;
+		const cartTotal = 0;
 		$("#cartItems tr").each(function () {
-			var lineTotal = parseFloat($(this).find("td:nth-child(4)").text().replace("$", ""));
+			const lineTotal = parseFloat($(this).find("td:nth-child(5)").text().replace("$", ""));
 			cartTotal += lineTotal;
 		});
 		$("#cartTotal").text(cartTotal.toFixed(2));
 	}
 
 	$("#shopping-cart").on("click", ".remove-item", function () {
-		$(this).closest("tr").remove(); // Remove item from cart
-		updateCartTotal(); // Update cart total after removing an item
+		$(this).closest("tr").remove();
+		updateCartTotal();
 	});
 
-	$('a[data-bs-target="#shopping-cart"]').click(function (e) {
+	$('[data-bs-toggle="slideToggle"]').click(function (e) {
 		e.preventDefault();
-		const $cart = $("#shopping-cart");
-
-		$cart.slideToggle({
-			duration: 600,
-			easing: "swing",
-		});
-	});
-	$("#support-toggle").click(function (e) {
-		e.preventDefault();
-		$("#support-section").slideToggle(600);
-	});
-	$('a[data-bs-target="#pc-builder"]').click(function (e) {
-		e.preventDefault();
-		const $builder = $("#pc-builder");
-
-		$builder.slideToggle({
-			duration: 600,
-			easing: "swing",
-		});
+		const targetSelector = $(this).attr("data-bs-target");
+		$(targetSelector).slideToggle(600);
+		const offcanvasId = "#offcanvasNavbar";
+		const offcanvasElement = $(offcanvasId);
+		if (offcanvasElement) {
+			const bsOffCanvas = bootstrap.Offcanvas.getInstance(offcanvasElement.get(0));
+			if (bsOffCanvas && bsOffCanvas._element.classList.contains("show")) {
+				bsOffCanvas.hide();
+			}
+		}
 	});
 
 	// add options to a select elements
 	function populateSelect(selectId, category) {
-		var $selectOptions = $("#" + selectId);
-		$selectOptions.empty(); // Clear existing options
+		const $selectOptions = $("#" + selectId);
+		$selectOptions.empty();
 
 		$.each(productsData.products, function (index, product) {
 			if (product.category === category) {
