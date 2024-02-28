@@ -1,16 +1,32 @@
 /** @format */
 
+// Custom variable declarations
 $custom-primary: #161616;
 $custom-secondary: #2c2c2c;
 $custom-success: #0ee636;
+$custom-danger: #f00;
+$custom-light: #eee;
 $transition-duration: 0.3s;
 
-// @import "~bootstrap/scss/bootstrap";
+// Override Bootstrap variables
+$theme-colors: (
+	'primary': $custom-primary,
+	'secondary': $custom-secondary,
+	'success': $custom-success,
+	'danger': $custom-danger,
+	'light': $custom-light,
+);
+
+// Import Bootstrap
+
+@import '../../node_modules/bootstrap/scss/bootstrap';
 
 html,
 body {
 	height: 100%;
 	margin: 0;
+	//remove horizontal scroll
+	overflow-x: hidden;
 }
 
 main {
@@ -138,6 +154,23 @@ a.nav-link.text-light-bold.main-nav-menu-item:focus {
 		transform: scale(0.9);
 	}
 }
+.btn-danger {
+	background-color: $custom-danger;
+	border-color: $custom-danger;
+	transition: background-color 0.3s ease, border-color 0.3s ease;
+	border-radius: 50rem;
+	color: $custom-primary;
+	font-weight: bold;
+
+	&:hover {
+		background-color: darken($custom-danger, 10%);
+		border-color: darken($custom-danger, 10%);
+		transform: translateY(-5px);
+	}
+	&:active {
+		transform: scale(0.9);
+	}
+}
 
 .btn-success-2 {
 	background-color: $custom-success;
@@ -151,6 +184,8 @@ a.nav-link.text-light-bold.main-nav-menu-item:focus {
 		background-color: darken($custom-success, 10%);
 		border-color: darken($custom-success, 10%);
 		transform: translateY(-5px);
+		font-weight: bold;
+		color: $custom-light;
 	}
 	&:active {
 		transform: scale(0.9);
@@ -182,7 +217,7 @@ a.nav-link.text-light-bold.main-nav-menu-item:focus {
 	}
 }
 
-select.select-input {
+q-select.select-input {
 	background-color: $custom-primary;
 	border-radius: 50rem;
 	color: white;
@@ -204,19 +239,27 @@ select.select-input {
 }
 
 .btn-pill-success {
-	background-color: transparent;
-	color: $custom-success;
+	background-color: $custom-success;
+	color: $custom-primary;
 	border: 1px solid $custom-success;
 	border-radius: 50rem;
+	font-weight: bold;
+	cursor: pointer;
+	transition: background-color 0.3s ease, border-color 0.3s ease;
 
 	&:hover {
 		background-color: $custom-success;
-		color: white;
+		background-color: darken($custom-success, 10%);
+		border-color: darken($custom-success, 10%);
+		transform: translateY(-5px);
+		font-weight: bold;
+		color: $custom-primary;
 	}
 
-	&:focus {
-		box-shadow: 0 0 0 0.2rem rgba($custom-success, 0.25);
-		border: 1px solid $custom-success;
+	&:active {
+		transform: scale(0.9);
+		border-color: darken($custom-success, 10%);
+		background-color: darken($custom-success, 10%);
 	}
 }
 
@@ -293,6 +336,22 @@ select.select-input {
 
 	&:hover {
 		color: white !important;
+		font-weight: bold;
+		transform: translateY(-5px);
+	}
+
+	&:active {
+		transform: scale(0.9);
+	}
+}
+
+.btn-outline-danger {
+	color: $custom-danger;
+	transition: color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+
+	&:hover {
+		color: white !important;
+		font-weight: bold;
 		transform: translateY(-5px);
 	}
 
@@ -315,7 +374,7 @@ select.select-input {
 
 .hero-image {
 	background: linear-gradient(to top, $custom-primary, rgba(0, 128, 128, 0)),
-		url("../images/products/ek-fluid-gaming-digital-reef-art-1.webp") no-repeat center center;
+		url('../images/products/ek-fluid-gaming-digital-reef-art-1.webp') no-repeat center center;
 	background-size: cover;
 	position: relative;
 	width: 100vw;
@@ -335,7 +394,7 @@ select.select-input {
 	left: 55%;
 }
 .hero-image-sm {
-	background: url("../images/products/ek-fluid-gaming-digital-reef-art-1.webp") no-repeat bottom;
+	background: url('../images/products/ek-fluid-gaming-digital-reef-art-1.webp') no-repeat bottom;
 	background-size: cover;
 	position: relative;
 	height: 15vh;
@@ -399,7 +458,8 @@ select.select-input {
 #shopping-cart,
 #pc-builder,
 #support-section,
-#blog-section {
+#blog-section,
+#map-section {
 	display: none;
 }
 
