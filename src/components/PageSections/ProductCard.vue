@@ -10,7 +10,7 @@
         <button
           type="button"
           class="btn btn-success-2 view-product-details"
-          @click="handleViewDetails, toggleModalVisibility"
+          @click="handleViewDetails"
         >
           View Product Details
         </button>
@@ -22,20 +22,26 @@
 <script>
 export default {
   name: 'ProductCard',
+
   props: {
     product: {
       type: Object,
       required: true
+    },
+    modelValue: {
+      type: Boolean,
+      default: false
+    }
+  },
+  watch: {
+    modelValue(newValue) {
+      this.detailsVisible = newValue
     }
   },
   emits: ['view-details'],
   methods: {
     handleViewDetails() {
       this.$emit('view-details', this.product)
-      this.detailsVisible = true
-    },
-    toggleModalVisibility() {
-      this.$emit('view-details')
     }
   }
 }

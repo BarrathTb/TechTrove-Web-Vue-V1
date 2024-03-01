@@ -1,7 +1,7 @@
 <template>
   <footer class="bg-secondary text-light">
     <div class="container">
-      <div class="row g-4 justify-content-between">
+      <div class="row g-4 justify-content-between px-2">
         <div class="col-lg-4 col-md-6 mb-3">
           <h5>About Us</h5>
           <p>
@@ -26,7 +26,9 @@
                 placeholder="Enter your email"
                 aria-label="Recipient's email"
               />
-              <button class="btn btn-outline-light ms-1" type="submit">Subscribe</button>
+              <button class="btn btn-outline-light ms-1 subscribe-button" type="submit">
+                Subscribe
+              </button>
             </div>
           </form>
         </div>
@@ -105,5 +107,7 @@ export default {
 </script>
 
 <style scoped>
-/* Your scoped styles for AppFooter component */
+.subscribe-button {
+  z-index: 10;
+}
 </style>

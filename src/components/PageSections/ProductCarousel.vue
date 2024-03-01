@@ -1,6 +1,10 @@
 <template>
   <div class="pb-5">
-    <div id="productCarousel" class="carousel slide align-items-center" data-bs-ride="carousel">
+    <div
+      id="productCarousel"
+      class="carousel slide align-items-center mx-3"
+      data-bs-ride="carousel"
+    >
       <div class="carousel-inner">
         <div
           v-for="(group, index) in groupedProducts"
@@ -45,30 +49,38 @@ export default {
     }
   },
   data() {
-    return {
-      detailsVisible: false
-    }
+    return {}
   },
   computed: {
     groupedProducts() {
+      // Define the group size based on the screen width.
+      const groupSize = window.innerWidth < 768 ? 1 : 3
+
       const groups = []
-      for (let i = 0; i < this.products.length; i += 3) {
-        groups.push(this.products.slice(i, i + 3))
+      for (let i = 0; i < this.products.length; i += groupSize) {
+        groups.push(this.products.slice(i, i + groupSize))
       }
       return groups
     }
-    // ...other computed properties
   },
 
   methods: {
     handleViewDetails(product) {
       this.$emit('view-details', product)
 
-      console.log(product) // Emitting an event with the product in productcarousel
+      console.log(product)
     },
-    toggleDetailVisibility() {
-      this.detailsVisible = !this.detailsVisible
+    onResize() {
+      this.groupSize = window.innerWidth < 768 ? 1 : 3
     }
+  },
+  mounted() {
+    this.onResize()
+    window.addEventListener('resize', this.onResize)
+  },
+
+  beforeUnmount() {
+    window.removeEventListener('resize', this.onResize)
   }
 }
 </script>

@@ -1,18 +1,19 @@
 <template>
-  <div v-if="detailsVisible" class="modal-mask" @click.self="closeModal">
+  <VaModal ref="modal" v-model="detailsVisible" class="rounded product-detail-modal">
     <!-- The following div acts as the modal container -->
-    <div class="modal-dialog modal-lg" role="document" @click.stop>
-      <div
-        class="modal-content bg-primary rounded justify-content-center p-4"
-        style="border-radius: 10px"
-      >
-        <div class="modal-header">
-          <h5 class="modal-title text-light">{{ product.name }}</h5>
-          <button type="button" class="btn-close text-light" @click="closeModal">
-            <span aria-hidden="true"><i class="fas fa-close white-icon"></i></span>
+    <template #content>
+      <div class="modal-lg rounded bg-primary p-4" style="border-radius: 10px">
+        <div class="modal-header d-flex justify-content-end align-items-center mb-2">
+          <button
+            class="btn btn-outline-success p-0 m-0"
+            style="text-decoration: none; background-color: transparent; border: light"
+            @click="closeModal"
+          >
+            <i class="bi bi-x fs-4"></i>
           </button>
         </div>
-        <div class="modal-body justify-content-center">
+
+        <div class="modal-body rounded justify-content-center">
           <img
             :src="product.image"
             class="img-fluid card-img-top"
@@ -23,8 +24,7 @@
             <h5 class="col text-white">{{ product.name }}</h5>
 
             <div class="col-3 text-right">
-              <input type="checkbox" v-model="isFavorite" />
-              <label for="favoriteCheckbox" class="heart-checkbox"></label>
+              <va-checkbox v-model="isFavorite" color="customSuccess"></va-checkbox>
             </div>
           </div>
           <p class="text-white">{{ productFormattedPrice }}</p>
@@ -48,41 +48,56 @@
           <div class="row mt-3">
             <div class="col">
               <div class="btn-group">
-                <button class="btn btn-success-2 rounded-circle me-2" @click="decrementQuantity">
+                <button
+                  size="small"
+                  class="rounded-circle me-2 btn btn-success-2"
+                  @click="decrementQuantity"
+                >
                   -
                 </button>
-                <input
-                  type="number"
+                <va-input
                   v-model.number="quantity"
+                  type="number"
                   min="1"
                   class="form-control ms-2 me-2"
                 />
-                <button class="btn btn-success-2 rounded-circle ms-2" @click="incrementQuantity">
+                <button
+                  size="small"
+                  class="rounded-circle ms-2 btn btn-success-2"
+                  @click="incrementQuantity"
+                >
                   +
                 </button>
               </div>
             </div>
             <div class="col-3">
-              <button v-if="closeModal" class="btn btn-success-2 flex-end" @click="addToCart">
-                Add to Cart
-              </button>
+              <button class="flex-end btn btn-success-2" @click="addToCart()">Add to Cart</button>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
+    </template>
+  </VaModal>
 </template>
 
 <script>
+import { VaCheckbox, VaInput, VaModal } from 'vuestic-ui'
+
 export default {
   name: 'ProductDetailModal',
+  components: {
+    VaModal,
+
+    VaInput,
+    VaCheckbox
+  },
   props: {
     product: {
       type: Object,
       required: true
     }
   },
+  emits: ['update:modelValue', 'add-to-cart'],
   data() {
     return {
       detailsVisible: false,
@@ -96,13 +111,10 @@ export default {
     }
   },
   methods: {
-    handleViewDetails() {
-      this.detailsVisible = true
-    },
     closeModal() {
-      this.$emit('close-modal') // Emit an event instead of setting local state
+      this.detailsVisible = false
+      this.$emit('update:modelValue', false)
     },
-
     incrementQuantity() {
       this.quantity++
     },
@@ -118,3 +130,9 @@ export default {
   }
 }
 </script>
+<style scoped>
+.product-detail-modal {
+  position: relative;
+  z-index: 1000;
+}
+</style>

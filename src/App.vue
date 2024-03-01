@@ -4,15 +4,26 @@
     @search="performSearch"
     @load-product-cards="filterProducts"
     @toggle-cart="toggleCartVisibility"
+    @toggle-login-modal="toggleLoginModal"
+    @toggle-blog="toggleBlogVisibility"
+    @toggle-build="toggleBuildVisibility"
+    @toggle-support="toggleSupportVisibility"
   />
-  <ShoppingCart :products="cartItems" v-show="cartVisible" />
+  <ShoppingCart :cart-items="cartItems" v-show="cartVisible" @add-to-cart="addToCart" />
+  <BlogSection v-show="blogVisible" />
+  <SupportSection v-show="isSupportVisible" />
+  <PcBuilder
+    :products="allProducts"
+    v-show="buildVisible"
+    @add-to-cart="addToCart"
+    @toggle-build="closeBuilder"
+  />
   <ProductDetailModal
-    v-if="selectedProduct"
     :product="selectedProduct"
-    v-show="detailsVisible"
+    v-model="detailsVisible"
     @add-to-cart="addToCart"
   />
-  <LoginModal v-show="loginModalVisible" />
+  <LoginModal v-model="isModalVisible" />
   <HeroImage />
 
   <ProductCarousel :products="filteredProducts" @view-details="handleViewDetails" />
@@ -21,13 +32,15 @@
 </template>
 
 <script>
-import HeroImage from './components/PageSections/HeroImage.vue'
-import ShoppingCart from './components/PageSections/ShoppingCart.vue'
-import ProductDetailModal from './components/modals/ProductDetailModal.vue'
-// import ProductCard from './components/PageSections/ProductCard.vue'
 import AppFooter from './components/PageSections/AppFooter.vue'
+import BlogSection from './components/PageSections/BlogSection.vue'
+import HeroImage from './components/PageSections/HeroImage.vue'
+import PcBuilder from './components/PageSections/PcBuilder.vue'
 import ProductCarousel from './components/PageSections/ProductCarousel.vue'
+import ShoppingCart from './components/PageSections/ShoppingCart.vue'
+import SupportSection from './components/PageSections/SupportSection.vue'
 import LoginModal from './components/modals/LoginModal.vue'
+import ProductDetailModal from './components/modals/ProductDetailModal.vue'
 import HeaderComponent from './components/siteNavs/HeaderComponent.vue'
 import { products } from './data.js'
 
@@ -35,6 +48,9 @@ export default {
   components: {
     HeaderComponent,
     ShoppingCart,
+    BlogSection,
+    SupportSection,
+    PcBuilder,
     ProductDetailModal,
     LoginModal,
     // ProductCard,
@@ -45,9 +61,13 @@ export default {
   data() {
     return {
       cartItems: [],
+      isSupportVisible: false,
+      isModalVisible: false,
       detailsVisible: false,
       selectedProduct: null,
       cartVisible: false,
+      blogVisible: false,
+      buildVisible: false,
       products: products, // Assuming `products` is imported above
       searchQuery: '', // Initialize your search query
       uniqueCategories: this.calculateUniqueCategories(products),
@@ -58,15 +78,20 @@ export default {
   },
 
   methods: {
-    addToCart(payload) {
-      const existingItem = this.cartItems.find((item) => item.product.id === payload.product.id)
-      if (existingItem) {
-        existingItem.quantity += payload.quantity
+    addToCart(item) {
+      // Check if the item contains a quantity field, if not, assign it as 1.
+      const product = item.product ? item.product : item
+      const quantity = item.quantity ? item.quantity : 1 // Default to 1 if not provided
+
+      // Find the product in cartItems by its id.
+      const existingItemIndex = this.cartItems.findIndex((cartItem) => cartItem.id === product.id)
+
+      // If the product already exists in the cart, increase the quantity.
+      if (existingItemIndex !== -1) {
+        this.cartItems[existingItemIndex].quantity += quantity
       } else {
-        this.cartItems.push({
-          product: payload.product,
-          quantity: payload.quantity
-        })
+        // If the product does not exist, add it with the specified quantity.
+        this.cartItems.push({ ...product, quantity: quantity })
       }
     },
     calculateUniqueCategories(products) {
@@ -103,18 +128,26 @@ export default {
     toggleCartVisibility() {
       this.cartVisible = !this.cartVisible
     },
-    toggleDetailVisibility() {
-      this.detailsVisible = !this.detailsVisible
+    toggleLoginModal() {
+      this.isModalVisible = !this.isModalVisible
+    },
+    toggleBlogVisibility() {
+      this.blogVisible = !this.blogVisible
+    },
+    toggleBuildVisibility() {
+      this.buildVisible = !this.buildVisible
+    },
+    closeBuilder() {
+      this.buildVisible = !this.buildVisible
+    },
+    toggleSupportVisibility() {
+      this.isSupportVisible = !this.isSupportVisible
     },
 
     handleViewDetails(product) {
       this.selectedProduct = product
-
+      this.detailsVisible = true
       console.log(this.selectedProduct)
-    },
-
-    toggleLoginModalVisibility() {
-      this.loginModalVisible = !this.loginModalVisible
     }
   }
 }

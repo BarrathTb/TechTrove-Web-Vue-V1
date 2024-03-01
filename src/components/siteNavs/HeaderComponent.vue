@@ -97,7 +97,7 @@
 
                 <li v-for="category in uniqueCategories" :key="category">
                   <a
-                    @click="loadProductCards(category)"
+                    @click="handleCategoryClick(category)"
                     class="dropdown-item text-light-bold menu-main"
                     href="#"
                     >{{ category }}</a
@@ -120,7 +120,7 @@
               <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkBrands">
                 <li v-for="brand in uniqueBrands" :key="brand">
                   <a
-                    @click="loadProductCards(brand)"
+                    @click="handleBrandClick(brand)"
                     class="dropdown-item text-light-bold menu-main"
                     href="#"
                     >{{ brand }}</a
@@ -189,8 +189,18 @@ export default {
     products: {
       type: Array,
       required: true
+    },
+    modelValue: {
+      type: Boolean,
+      default: false
     }
   },
+  watch: {
+    modelValue(newValue) {
+      this.isModalVisible = newValue
+    }
+  },
+  emits: ['toggle-login-modal'],
   data() {
     return {
       searchQuery: ''
@@ -222,6 +232,20 @@ export default {
     },
     filterProducts(filterType, filterValue) {
       this.$emit('filter-products', { type: filterType, value: filterValue })
+    },
+    handleCategoryClick(category) {
+      this.loadProductCards(category)
+      this.scrollToProductCarousel()
+    },
+    handleBrandClick(brand) {
+      this.loadProductCards(brand)
+      this.scrollToProductCarousel()
+    },
+    scrollToProductCarousel() {
+      const carouselElement = document.getElementById('productCarousel')
+      if (carouselElement) {
+        carouselElement.scrollIntoView({ behavior: 'smooth' })
+      }
     }
   },
   computed: {

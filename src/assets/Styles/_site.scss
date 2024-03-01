@@ -17,6 +17,8 @@ $colors: (
 );
 
 @import 'node_modules/bootstrap/scss/bootstrap';
+// import Vuestic ui to override
+
 /* Layout & Grid */
 html,
 body {
@@ -440,15 +442,15 @@ select.select-input {
 }
 
 .hero-text-sm {
-  position: relative;
+  position: absolute;
   bottom: 0%;
-  left: 55%;
+  left: 15%;
 }
 .hero-image-sm {
-  background: url('/images/ek-fluid-gaming-digital-reef-art-1.webp') no-repeat bottom;
+  background: url('/images/ek-fluid-gaming-digital-reef-art-1.webp') no-repeat bottom center;
   background-size: cover;
   position: relative;
-  height: 15vh;
+  height: 38vh;
 }
 
 .product-card .card-img-contain {

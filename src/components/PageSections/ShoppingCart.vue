@@ -243,7 +243,7 @@ export default {
     return {
       isCartVisible: false,
       products: [],
-      cartItems: [] // Placeholder for cart items array
+      cartItems: []
     }
   },
   computed: {
@@ -256,16 +256,7 @@ export default {
     toggleCartVisibility() {
       this.isCartVisible = !this.isCartVisible
     },
-    // fetchProducts() {
-    //   // Perform an AJAX call, e.g., with axios to get the products.
-    //   // This example uses static data imported from a data.js file.
-    //   import('./data.js').then(module => {
-    //     const products = module.default.products;
-    //     // You could populate some initial cart items from these products or another source.
-    //     // This is just an example; actual implementation would vary based on requirements.
-    //   });
-    //   return this.products;
-    // },
+
     removeItem(index) {
       this.cartItems.splice(index, 1)
     },
@@ -276,13 +267,18 @@ export default {
         cartElement.classList.toggle('active')
       }
     },
-    addToCart(product) {
-      // Logic to add product to cart. This might include checking for existing cart items and incrementing quantity.
-      const foundIndex = this.cartItems.findIndex((item) => item.id === product.id)
+    addToCart(item) {
+      const productToAdd = item.product || item // Handle both objects and direct product references
+      const quantityToAdd = item.quantity || 1 // Default to 1 if no quantity specified
+
+      const foundIndex = this.cartItems.findIndex((cartItem) => cartItem.id === productToAdd.id)
+
       if (foundIndex !== -1) {
-        this.cartItems[foundIndex].quantity++
+        // If found, update the quantity of the existing item
+        this.cartItems[foundIndex].quantity += quantityToAdd
       } else {
-        this.cartItems.push({ ...product, quantity: 1 })
+        // If not found, add the product with the initial quantity
+        this.cartItems.push({ ...productToAdd, quantity: quantityToAdd })
       }
     },
     clearCart() {
