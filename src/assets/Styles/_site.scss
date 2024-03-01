@@ -1,0 +1,537 @@
+/** @format */
+
+$custom-primary: #161616;
+$custom-secondary: #2c2c2c;
+$custom-success: #0ee636;
+$custom-danger: #f00;
+$custom-light: #eee;
+$transition-duration: 0.3s;
+
+// Override Bootstrap variables
+$colors: (
+  'primary': $custom-primary,
+  'secondary': $custom-secondary,
+  'success': $custom-success,
+  'danger': $custom-danger,
+  'light': $custom-light
+);
+
+@import 'node_modules/bootstrap/scss/bootstrap';
+/* Layout & Grid */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  //remove horizontal scroll
+  overflow-x: hidden;
+}
+
+main {
+  min-height: calc(100vh - 70px - 30px);
+}
+
+.container {
+  width: 100vw;
+}
+
+.nav-tabs {
+  .nav-item {
+    display: block;
+    position: relative;
+    background-color: $custom-secondary;
+    color: white;
+  }
+
+  .nav-link {
+    background-color: $custom-secondary;
+    color: white !important;
+    transition:
+      color $transition-duration ease,
+      background-color $transition-duration ease,
+      border-bottom $transition-duration ease;
+
+    &:hover {
+      color: lighten($custom-secondary, 10%);
+      transform: translateY(-5px);
+    }
+
+    &:active {
+      transform: scale(0.9);
+    }
+  }
+}
+@media (min-width: 768px) {
+  .hero-image {
+    background-size: cover;
+    background-position: bottom calc(100% - 10%);
+    height: 50vw;
+  }
+}
+
+.dropdown-menu {
+  background-color: $custom-secondary; /* Make sure you have defined this variable in your SCSS */
+  color: white;
+
+  display: none; /* Initially hide the dropdown menu */
+  grid-template-columns: repeat(3, 1fr); /* Adjust accordingly for columns */
+  gap: 10px;
+  max-height: 400px;
+  overflow-y: auto;
+
+  .dropdown-item {
+    &:hover {
+      background-color: lighten($custom-secondary, 10%);
+      transform: translateY(-5px) 0.5s ease;
+      color: white;
+    }
+
+    &:active {
+      transform: scale(0.9);
+    }
+  }
+  /* For Webkit-based browsers */
+  ::-webkit-scrollbar {
+    width: 12px; /* Adjust scrollbar width */
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #2e2e2e; /* Dark-theme track color */
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #555; /* Dark-theme thumb color */
+    border-radius: 6px;
+    border: 3px solid $custom-success; /* Same as track color to have seamless borders */
+  }
+
+  /* For Firefox */
+  * {
+    scrollbar-width: thin; /* 'auto' or 'thin' */
+    scrollbar-color: #555 #2e2e2e; /* thumb and track color */
+  }
+
+  a.nav-link.active.text-light-bold.main-nav-menu-item:not(:hover):active {
+    color: white !important;
+  }
+}
+a.nav-link.text-light-bold.main-nav-menu-item {
+  background-color: $custom-secondary;
+  color: white !important;
+}
+
+a.nav-link.text-light-bold.main-nav-menu-item:hover,
+a.nav-link.text-light-bold.main-nav-menu-item:focus {
+  color: white !important;
+  background-color: darken($custom-success, 20%);
+}
+
+.accordion-item {
+  border-radius: 5px;
+  .accordion-button {
+    transition:
+      background-color 0.3s,
+      color 0.3s;
+    background-color: $custom-secondary;
+    color: white;
+    border-radius: 5px;
+
+    &:hover {
+      background-color: lighten($custom-secondary, 10%);
+    }
+
+    &:focus {
+      box-shadow: 0 0 0 0.25rem rgba(181, 208, 234, 0.5);
+      background-color: $custom-success;
+    }
+
+    &.collapsed {
+      background-color: $custom-secondary !important;
+      color: white !important;
+    }
+  }
+}
+
+.btn-primary {
+  background-color: $custom-primary;
+  border-color: $custom-primary;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease;
+
+  &:hover {
+    background-color: darken($custom-primary, 10%);
+    border-color: darken($custom-primary, 10%);
+    transform: translateY(-5px);
+  }
+  &:active {
+    transform: scale(0.9);
+  }
+}
+.btn-success {
+  background-color: $custom-success;
+  border-color: $custom-success;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease;
+  border-radius: 50rem;
+  color: white;
+  font-weight: bold;
+
+  &:hover {
+    background-color: darken($custom-success, 10%);
+    border-color: darken($custom-success, 10%);
+    transform: translateY(-5px) 0.5s ease;
+  }
+  &:active {
+    transform: scale(0.9);
+  }
+}
+.btn-danger {
+  background-color: $custom-danger;
+  border-color: $custom-danger;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease;
+  border-radius: 50rem;
+  color: $custom-primary;
+  font-weight: bold;
+
+  &:hover {
+    background-color: darken($custom-danger, 10%);
+    border-color: darken($custom-danger, 10%);
+    transform: translateY(-5px) 0.5s ease;
+  }
+  &:active {
+    transform: scale(0.9);
+  }
+}
+
+.btn-success-2 {
+  background-color: $custom-success;
+  border-color: $custom-success;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease;
+  border-radius: 50rem;
+  color: $custom-primary;
+  font-weight: bold;
+
+  &:hover {
+    background-color: darken($custom-success, 10%);
+    border-color: darken($custom-success, 10%);
+    transform: translateY(-5px) 0.5s ease;
+    font-weight: bold;
+    color: $custom-light;
+  }
+  &:active {
+    transform: scale(0.9);
+  }
+}
+
+.search-input,
+.login-input {
+  background-color: $custom-secondary;
+  border-radius: 50rem;
+  color: white;
+  border: $custom-success;
+
+  &::placeholder {
+    color: white;
+  }
+  &:hover {
+    background-color: darken($custom-success, 10%);
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 0.2rem rgba($custom-success, 0.25);
+    background-color: $custom-secondary;
+    color: white;
+    border-color: $custom-success;
+  }
+  &:focus[icon] {
+    color: $custom-success;
+  }
+}
+
+select.select-input {
+  background-color: $custom-primary;
+  border-radius: 50rem;
+  color: white;
+  border-color: $custom-success;
+
+  &::placeholder {
+    color: white;
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 0.2rem rgba($custom-success, 0.25);
+    background-color: $custom-primary;
+    color: white;
+    border-color: $custom-success;
+  }
+  &:focus[icon] {
+    color: $custom-success;
+  }
+}
+
+.btn-pill-success {
+  background-color: $custom-success;
+  color: $custom-primary;
+  border: 1px solid $custom-success;
+  border-radius: 50rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease;
+
+  &:hover {
+    background-color: $custom-success;
+    background-color: darken($custom-success, 10%);
+    border-color: darken($custom-success, 10%);
+    transform: translateY(-5px) 0.5s ease;
+    font-weight: bold;
+    color: $custom-primary;
+  }
+
+  &:active {
+    transform: scale(0.9);
+    border-color: darken($custom-success, 10%);
+    background-color: darken($custom-success, 10%);
+  }
+}
+
+.btn-pill-light {
+  background-color: white;
+  border: 1px solid #ccc;
+  color: $custom-primary;
+  font-weight: bold;
+  border-radius: 50rem;
+  outline: none;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease;
+
+  &:hover {
+    background-color: darken(white, 10%);
+    border-color: darken(white, 10%);
+    transform: translateY(-5px) 0.5s ease;
+    color: $custom-primary;
+  }
+  &:active {
+    transform: scale(0.9);
+  }
+}
+
+.bg-primary {
+  background-color: $custom-primary !important;
+}
+.bg-secondary {
+  background-color: $custom-secondary !important;
+}
+.bg-success {
+  background-color: $custom-success !important;
+}
+
+.bg-contain {
+  background-color: #ebf2fa;
+}
+
+.text-primary {
+  color: $custom-primary !important;
+}
+
+.text-primary-bold {
+  color: $custom-primary !important;
+  font-weight: bold;
+}
+
+.text-light {
+  color: white;
+}
+.text-light-bold {
+  color: white;
+  font-weight: bold;
+  &:hover {
+    text-shadow: 0 0 6px rgba(255, 255, 255, 0.9);
+    transform: translateZ(20px) rotateX(30deg);
+  }
+  &:active {
+    transform: scale(0.9);
+  }
+}
+
+.border-primary {
+  border-color: $custom-primary !important;
+}
+
+.box-shadow-success {
+  box-shadow:
+    0 1px 3px rgba(0, 62, 122, 0.12),
+    0 1px 2px rgba(0, 62, 122, 0.24);
+}
+
+.btn-outline-success {
+  color: $custom-success;
+  transition:
+    color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
+
+  &:hover {
+    color: white !important;
+    font-weight: bold;
+    transform: translateY(-5px) 0.5s ease;
+  }
+
+  &:active {
+    transform: scale(0.9);
+  }
+}
+
+.btn-outline-danger {
+  color: $custom-danger;
+  transition:
+    color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
+
+  &:hover {
+    color: white !important;
+    font-weight: bold;
+    transform: translateY(-5px) 0.5s ease;
+  }
+
+  &:active {
+    transform: scale(0.9);
+  }
+}
+.product-card {
+  padding: 1rem;
+
+  &:hover {
+    background-color: darken($custom-primary, 10%);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    color: white !important;
+    transform: translateY(-5px);
+    border-color: $custom-success;
+    transition:
+      transform 0.5s ease,
+      border-color 0.5s ease;
+  }
+}
+
+.hero-image {
+  background:
+    linear-gradient(to top, $custom-primary, rgba(0, 128, 128, 0)),
+    url('/images/ek-fluid-gaming-digital-reef-art-1.webp') no-repeat center center;
+  background-size: cover;
+  position: relative;
+  width: 100vw;
+  height: 20vh;
+}
+
+.hero-text {
+  position: absolute;
+  bottom: 0%;
+  left: 43%;
+  transform: translate(-50%);
+}
+
+.hero-text-sm {
+  position: relative;
+  bottom: 0%;
+  left: 55%;
+}
+.hero-image-sm {
+  background: url('/images/ek-fluid-gaming-digital-reef-art-1.webp') no-repeat bottom;
+  background-size: cover;
+  position: relative;
+  height: 15vh;
+}
+
+.product-card .card-img-contain {
+  height: 220px;
+
+  max-width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-card .card-img-top {
+  width: auto;
+  max-width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.icon-success {
+  color: white;
+  transform: translateY(-5px) 0.5s ease;
+  &:hover {
+    text-shadow: 0 0 8px $custom-success;
+  }
+  &:active {
+    transform: scale(0.9);
+  }
+}
+
+.card-img-top {
+  border-radius: 10px;
+  max-height: 250px;
+  max-width: 250px;
+  object-fit: contain;
+  margin: auto;
+}
+
+.modal.pill {
+  border-radius: 50px;
+}
+
+.modal.rounded-circle {
+  border-radius: 50%;
+}
+
+.icon-success {
+  color: $custom-success;
+}
+.product-detail-show {
+  z-index: 999;
+}
+.svg-inline--fa.fa-check.success-icon {
+  height: 10px;
+  width: 10px;
+}
+
+// #shopping-cart,
+// #pc-builder,
+// #support-section,
+// #blog-section,
+// #map-section {
+//   display: none;
+// }
+
+.input-black-line {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid black;
+  box-shadow: none;
+}
+.cartImage {
+  width: 50px;
+  height: 50px;
+  display: block;
+  border-radius: 10px;
+}
+
+// Place specific media queries, animations or keyframes below
+@media (min-width: 768px) {
+  .hero-image {
+    background-size: cover;
+    background-position: bottom calc(100% - 10%);
+    height: 50vw;
+  }
+}
