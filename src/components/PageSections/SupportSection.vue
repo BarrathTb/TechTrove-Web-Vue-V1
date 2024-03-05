@@ -44,7 +44,6 @@ export default {
 </script>
 
 <style>
-/* Add your transition styles here */
 .slide-enter-active,
 .slide-leave-active {
   transition: opacity 0.5s;

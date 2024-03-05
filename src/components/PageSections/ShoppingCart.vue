@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/no-mutating-props -->
 <template>
   <transition name="slide">
     <div
@@ -25,7 +26,11 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="(item, index) in cartItems" :key="item.id">
+                    <tr
+                      v-for="(item, index) in cartItems"
+                      :key="item.id"
+                      class="align-items-center"
+                    >
                       <td><img :src="item.image" :alt="item.name" class="cartImage" /></td>
                       <td>{{ item.name }}</td>
                       <td>${{ item.price.toFixed(2) }}</td>
@@ -39,7 +44,7 @@
                   <tfoot>
                     <tr>
                       <td colspan="5" class="text-right">
-                        <h5>Total: ${{ cartTotal.toFixed(2) }}</h5>
+                        <h5>Total: ${{ cartTotal }}</h5>
                       </td>
                     </tr>
                     <tr>
@@ -239,50 +244,54 @@
 <script>
 export default {
   name: 'ShoppingCart',
+  props: {
+    cartItems: Array
+  },
   data() {
     return {
-      isCartVisible: false,
-      products: [],
-      cartItems: []
+      cartVisible: false,
+      products: Array
     }
   },
   computed: {
     cartTotal() {
       return this.cartItems.reduce((total, item) => total + item.price * item.quantity, 0)
+    },
+    cartItemCount() {
+      return this.cartItems.reduce((count, item) => count + item.quantity, 0)
     }
   },
 
   methods: {
     toggleCartVisibility() {
-      this.isCartVisible = !this.isCartVisible
+      this.$emit('toggle-cart')
+    },
+    updateCart() {
+      this.$emit('update-cart-count', this.cartItemCount)
     },
 
     removeItem(index) {
       this.cartItems.splice(index, 1)
+      this.$emit('update-cart', this.cartItems)
     },
-    toggleCart() {
-      // Logic to open/close the shopping cart. Specific implementation details may vary.
-      const cartElement = this.$refs.shoppingCart
-      if (cartElement) {
-        cartElement.classList.toggle('active')
-      }
-    },
-    addToCart(item) {
-      const productToAdd = item.product || item // Handle both objects and direct product references
-      const quantityToAdd = item.quantity || 1 // Default to 1 if no quantity specified
 
-      const foundIndex = this.cartItems.findIndex((cartItem) => cartItem.id === productToAdd.id)
+    addToCart(item) {
+      const productToAdd = item.product || item
+      const quantityToAdd = item.quantity || 1
+
+      const foundIndex = this.cartItems((cartItem) => cartItem.id === productToAdd.id)
 
       if (foundIndex !== -1) {
-        // If found, update the quantity of the existing item
         this.cartItems[foundIndex].quantity += quantityToAdd
       } else {
-        // If not found, add the product with the initial quantity
         this.cartItems.push({ ...productToAdd, quantity: quantityToAdd })
       }
+      this.$emit('update-cart', this.cartItems)
+      console.log('Item added to cart!', productToAdd, quantityToAdd)
     },
     clearCart() {
       this.cartItems = []
+      this.$emit('update-cart', this.cartItems)
     }
   }
 }

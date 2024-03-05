@@ -34,8 +34,7 @@
 </template>
 
 <script>
-// import { computed } from 'vue'
-import ProductCard from './ProductCard.vue' // Make sure the path here is correct
+import ProductCard from './ProductCard.vue'
 
 export default {
   name: 'ProductCarousel',

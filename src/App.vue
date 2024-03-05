@@ -8,8 +8,15 @@
     @toggle-blog="toggleBlogVisibility"
     @toggle-build="toggleBuildVisibility"
     @toggle-support="toggleSupportVisibility"
+    :cart-item-count="cartItemCount"
+    @update-cart-count="updateCartItemCount"
   />
-  <ShoppingCart :cart-items="cartItems" v-show="cartVisible" @add-to-cart="addToCart" />
+  <ShoppingCart
+    class="shopping-cart"
+    :cart-items="cartItems"
+    v-show="cartVisible"
+    @update-cart="updateCart"
+  />
   <BlogSection v-show="blogVisible" />
   <SupportSection v-show="isSupportVisible" />
   <PcBuilder
@@ -60,40 +67,50 @@ export default {
   },
   data() {
     return {
+      cartItemCount: 0,
       cartItems: [],
       isSupportVisible: false,
+      quantity: 1,
       isModalVisible: false,
       detailsVisible: false,
       selectedProduct: null,
       cartVisible: false,
       blogVisible: false,
       buildVisible: false,
-      products: products, // Assuming `products` is imported above
-      searchQuery: '', // Initialize your search query
+      products: products,
+      searchQuery: '',
       uniqueCategories: this.calculateUniqueCategories(products),
       uniqueBrands: this.calculateUniqueBrands(products),
       allProducts: products,
-      filteredProducts: products // Start with all products
+      filteredProducts: products
     }
   },
 
   methods: {
     addToCart(item) {
-      // Check if the item contains a quantity field, if not, assign it as 1.
       const product = item.product ? item.product : item
-      const quantity = item.quantity ? item.quantity : 1 // Default to 1 if not provided
+      const quantity = item.quantity ? item.quantity : 1
 
-      // Find the product in cartItems by its id.
       const existingItemIndex = this.cartItems.findIndex((cartItem) => cartItem.id === product.id)
+      console.log(existingItemIndex)
 
-      // If the product already exists in the cart, increase the quantity.
       if (existingItemIndex !== -1) {
         this.cartItems[existingItemIndex].quantity += quantity
       } else {
-        // If the product does not exist, add it with the specified quantity.
         this.cartItems.push({ ...product, quantity: quantity })
       }
+      console.log(this.cartItems)
+      this.cartVisible = true
+      this.scrollToCart()
     },
+    updateCart(updatedCartItems) {
+      this.cartItems = updatedCartItems
+      this.updateCartItemCount()
+    },
+    updateCartItemCount() {
+      this.cartItemCount = this.cartItems.reduce((count, item) => count + item.quantity, 0)
+    },
+
     calculateUniqueCategories(products) {
       // Logic to get unique categories from products.
       return [...new Set(products.map((p) => p.category))]
@@ -148,6 +165,12 @@ export default {
       this.selectedProduct = product
       this.detailsVisible = true
       console.log(this.selectedProduct)
+    },
+    scrollToCart() {
+      const cartElement = document.getElementsByClassName('shopping-cart')[0]
+      if (cartElement) {
+        cartElement.scrollIntoView({ behavior: 'smooth' })
+      }
     }
   }
 }

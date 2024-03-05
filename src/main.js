@@ -10,11 +10,9 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { createVuestic } from 'vuestic-ui'
 import 'vuestic-ui/css'
 
-// Your custom styles
 import './assets/Styles/_site.scss'
 import './assets/main.css'
 
-// Your custom scrollbar plugin
 import Scrollbar from './smooth-scrollbar-plugin.js'
 
 const vuestic = createVuestic({
@@ -41,12 +39,9 @@ const vuestic = createVuestic({
   }
 })
 
-// Create Vue app
 const app = createApp(App)
 
-// Use Vuestic and Scrollbar plugins with the Vue app
 app.use(vuestic)
 app.use(Scrollbar)
 
-// Mount the Vue app to the DOM
 app.mount('#app')

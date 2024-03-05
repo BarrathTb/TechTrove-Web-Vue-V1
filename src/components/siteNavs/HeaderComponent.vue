@@ -44,9 +44,11 @@
 
           <!-- Cart and Login Icons -->
           <div class="d-none d-lg-flex justify-content-end align-items-center flex-grow-1 pe-4">
-            <button @click="toggleCartVisibility" class="nav-link border-0 bg-transparent">
-              <i class="bi bi-cart fs-4 mb-2 mx-2 icon-success"></i>
-            </button>
+            <VaBadge :content="cartItemCount" overlap>
+              <button @click="toggleCartVisibility" class="nav-link border-0 bg-transparent">
+                <i class="bi bi-cart fs-4 mb-2 mx-2 icon-success"></i>
+              </button>
+            </VaBadge>
             <button @click="toggleLoginModal" class="nav-link" id="login-modal">
               <i class="bi bi-person fs-4 mb-2 mx-2 icon-success"></i>
             </button>
@@ -172,9 +174,7 @@
           </button>
 
           <!-- Off Canvas Content -->
-          <div id="offcanvasNavbar" title="Menu" right>
-            <!-- ... The offcanvas content goes here ... -->
-          </div>
+          <div id="offcanvasNavbar" title="Menu" right></div>
         </div>
       </nav>
     </div>
@@ -185,7 +185,10 @@
 export default {
   name: 'HeaderComponent',
   props: {
-    // Using props to receive products from parent
+    cartItemCount: {
+      type: Number,
+      required: true
+    },
     products: {
       type: Array,
       required: true

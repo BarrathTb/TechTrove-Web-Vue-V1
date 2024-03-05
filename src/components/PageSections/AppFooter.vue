@@ -16,7 +16,7 @@
           <p>
             Stay updated with the latest news and special offers by subscribing to our newsletter.
           </p>
-          <!-- Form submission would go here -->
+
           <form @submit.prevent="subscribeToNewsletter">
             <div class="input-group mb-3">
               <input
@@ -68,7 +68,7 @@
 
         <div class="col-12 text-center mb-2">
           <p>Follow us on social media:</p>
-          <!-- Social media links would go here -->
+
           <a href="#" class="btn btn-light mx-1">
             <i class="bi bi-facebook"></i>
           </a>
@@ -92,15 +92,12 @@ export default {
   name: 'AppFooter',
   data() {
     return {
-      // Data properties for the component
       email: ''
     }
   },
   methods: {
     subscribeToNewsletter() {
-      // Method to handle newsletter subscription logic
       console.log('Subscribing with email:', this.email)
-      // You would replace the console.log with actual API call or form submission logic here.
     }
   }
 }

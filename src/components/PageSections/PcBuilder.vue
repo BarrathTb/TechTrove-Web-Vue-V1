@@ -176,7 +176,7 @@ export default {
     createBuild() {
       Object.values(this.selectedParts).forEach((part) => {
         if (part) {
-          // Assume the quantity for each part is 1 unless specified otherwise.
+          // Assume the quantity for each part is 1
           this.$emit('add-to-cart', { product: part, quantity: 1 })
         }
       })
@@ -199,9 +199,7 @@ export default {
       })
     }
   },
-  mounted() {
-    // Optionally, if you need to do something when the component is mounted
-  }
+  mounted() {}
 }
 </script>
 <style scoped>

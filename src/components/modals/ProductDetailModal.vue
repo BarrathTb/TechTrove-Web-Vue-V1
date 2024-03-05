@@ -125,7 +125,15 @@ export default {
     },
     addToCart() {
       this.$emit('add-to-cart', { product: this.product, quantity: this.quantity })
+      console.log({ product: this.product, quantity: this.quantity })
       this.closeModal()
+      this.scrollToCart()
+    },
+    scrollToCart() {
+      const cartElement = document.getElementById('shopping-cart')
+      if (cartElement) {
+        cartElement.scrollIntoView({ behavior: 'smooth' })
+      }
     }
   }
 }

@@ -42,8 +42,6 @@
 export default {
   name: 'HeroSection',
   methods: {
-    // ...Your existing methods...
-
     scrollToProductCarousel() {
       const carouselElement = document.getElementById('productCarousel')
       if (carouselElement) {
@@ -56,10 +54,8 @@ export default {
 
 <style scoped>
 .hero-image {
-  background-image:
-    linear-gradient(to top, #161616, rgba(0, 128, 128, 0)),
-    /* Replace #007bff with your primary color */
-      url('/images/ek-fluid-gaming-digital-reef-art-1.webp');
+  background-image: linear-gradient(to top, #161616, rgba(0, 128, 128, 0)),
+    url('/images/ek-fluid-gaming-digital-reef-art-1.webp');
   background-size: cover;
   position: relative;
   width: 100vw;

@@ -125,8 +125,6 @@ export default {
       this.$emit('update:modelValue', false)
     },
     login() {
-      // Here you would implement your login logic, possibly emitting an event
-      // when login is successful or showing error messages if not.
       console.log('Attempting to log in with:', this.credentials)
 
       // Simulated API call and processing:
