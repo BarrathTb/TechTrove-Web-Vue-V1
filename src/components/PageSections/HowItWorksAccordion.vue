@@ -28,21 +28,21 @@
                   <info-card
                     class="flex-grow text-left"
                     title="Step 1"
-                    image-src="/images/tech-entry-3.png"
+                    image-src="/TechTrove-Web-Vue-V1/images/tech-entry-3.png"
                     description="Search for the computer parts you need. Find the best deals and quality products."
                   ></info-card>
                   
                   <info-card
                     class="flex-grow"
                     title="Step 2"
-                    image-src="/images/tech-entry-4.png"
+                    image-src="/TechTrove-Web-Vue-V1/images/tech-entry-4.png"
                     description="Click on a product card for more details. Add products to your cart, and customize your order."
                   ></info-card>
                  
                   <info-card
                     class="flex-grow"
                     title="Step 3"
-                    image-src="/images/tech-entry-5.png"
+                    image-src="/TechTrove-Web-Vue-V1/images/tech-entry-5.png"
                     description="Review your cart and make any changes, proceed to checkout when ready. Don't forget to try the pc builder to make your dream pc come to life."
                   ></info-card>
                 </div>
