@@ -2,7 +2,10 @@
   <transition name="slide">
     <section v-show="toggleBlogVisibility" class="bg-primary py-5" id="blog-section">
       <div class="container">
-        <div class="card bg-success rounded-3 p-3 text-light mx-auto" style="max-width: 1000px">
+        <div
+          class="card blog-background rounded-3 p-3 text-light mx-auto"
+          style="max-width: 1000px"
+        >
           <!-- Blog Article -->
           <div
             v-for="(article, index) in articles"
@@ -162,5 +165,15 @@ export default {
 }
 .card li {
   font-size: 1.25em;
+}
+.blog-background {
+  background: linear-gradient(
+    180deg,
+    #161616 0%,
+    #161616 10%,
+    #0ee636 50%,
+    #161616 90%,
+    #161616 100%
+  );
 }
 </style>

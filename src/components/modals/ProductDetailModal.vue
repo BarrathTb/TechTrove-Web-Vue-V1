@@ -24,7 +24,13 @@
             <h5 class="col text-white">{{ product.name }}</h5>
 
             <div class="col-3 text-right">
-              <va-checkbox v-model="isFavorite" color="customSuccess"></va-checkbox>
+              <input
+                type="checkbox"
+                id="heartCheckbox"
+                v-model="isFavorite"
+                class="hidden-checkbox"
+              />
+              <label for="heartCheckbox" class="heart"></label>
             </div>
           </div>
           <p class="text-white">{{ productFormattedPrice }}</p>
@@ -42,7 +48,7 @@
               <h5 class="text-white float-left">Price</h5>
             </div>
             <div class="col-6">
-              <h5 class="text-white float-right">{{ productFormattedPrice }}</h5>
+              <h5 class="text-white float-right">{{ total }}</h5>
             </div>
           </div>
           <div class="row mt-3">
@@ -71,7 +77,9 @@
               </div>
             </div>
             <div class="col-3">
-              <button class="flex-end btn btn-success-2" @click="addToCart()">Add to Cart</button>
+              <button class="flex-end btn btn-success-2" @click="handleCartOperation">
+                {{ buttonText }}
+              </button>
             </div>
           </div>
         </div>
@@ -81,20 +89,24 @@
 </template>
 
 <script>
-import { VaCheckbox, VaInput, VaModal } from 'vuestic-ui'
+import { VaInput, VaModal } from 'vuestic-ui'
 
 export default {
   name: 'ProductDetailModal',
   components: {
     VaModal,
 
-    VaInput,
-    VaCheckbox
+    VaInput
   },
   props: {
     product: {
       type: Object,
       required: true
+    },
+    isEditMode: Boolean,
+    initialQuantity: {
+      type: Number,
+      default: 1
     }
   },
   emits: ['update:modelValue', 'add-to-cart'],
@@ -108,6 +120,18 @@ export default {
   computed: {
     productFormattedPrice() {
       return `$${parseFloat(this.product.price).toFixed(2)}`
+    },
+    total() {
+      const totalPrice = this.product.price * this.quantity
+      return `$${totalPrice.toFixed(2)}`
+    },
+    buttonText() {
+      return this.isEditMode ? 'Update Cart' : 'Add to Cart'
+    }
+  },
+  watch: {
+    initialQuantity(newQty) {
+      this.quantity = newQty
     }
   },
   methods: {
@@ -122,6 +146,17 @@ export default {
       if (this.quantity > 1) {
         this.quantity--
       }
+    },
+    handleCartOperation() {
+      if (this.isEditMode) {
+        this.updateCartItem()
+      } else {
+        this.addToCart()
+      }
+    },
+    updateCartItem() {
+      this.$emit('update-cart-item', { product: this.product, quantity: this.quantity })
+      this.closeModal()
     },
     addToCart() {
       this.$emit('add-to-cart', { product: this.product, quantity: this.quantity })
@@ -142,5 +177,25 @@ export default {
 .product-detail-modal {
   position: relative;
   z-index: 1000;
+}
+
+.hidden-checkbox {
+  display: none;
+}
+
+/* Base styles for the heart label */
+.heart {
+  cursor: pointer;
+  background-color: transparent;
+  height: 30px; /* Adjust as needed */
+  width: 30px; /* Adjust as needed */
+  display: inline-block;
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><path d="M24.8,47l-2.9-2.7C9.6,31.1,1,22.9,1,14.5C1,7.1,6.6,1,13.4,1c4.3,0,8.1,2.2,10.6,5.7C26,3.2,29.8,1,34.1,1C40.9,1,46.5,7.1,46.5,14.5c0,8.5-8.6,16.6-20.9,30L24.8,47z" fill="%23CCCCCC"/></svg>'); /* Unchecked state (grey heart) */
+  background-size: cover;
+}
+
+/* When the checkbox is checked, use a red heart */
+.hidden-checkbox:checked + .heart {
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><path d="M24.8,47l-2.9-2.7C9.6,31.1,1,22.9,1,14.5C1,7.1,6.6,1,13.4,1c4.3,0,8.1,2.2,10.6,5.7C26,3.2,29.8,1,34.1,1C40.9,1,46.5,7.1,46.5,14.5c0,8.5-8.6,16.6-20.9,30L24.8,47z" fill="%23FF0000"/></svg>'); /* Checked state (red heart) */
 }
 </style>

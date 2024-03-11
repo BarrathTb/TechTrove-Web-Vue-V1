@@ -1,16 +1,12 @@
 <!-- eslint-disable vue/no-mutating-props -->
 <template>
   <transition name="slide">
-    <div
-      v-show="toggleCartVisibility"
-      id="shopping-cart"
-      class="cart-section bg-primary container-fluid"
-    >
+    <div v-show="toggleCartVisibility" id="shopping-cart" class="bg-primary container-fluid">
       <!-- Shopping Cart Section -->
       <section class="shopping-cart py-5">
         <div class="container">
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-6 col-sm-12">
               <!-- Shopping Cart Table -->
               <div class="card bg-secondary mb-3 p-2">
                 <h2 class="text-light p-4">Your Cart</h2>
@@ -36,14 +32,21 @@
                       <td>${{ item.price.toFixed(2) }}</td>
                       <td>{{ item.quantity }}</td>
                       <td>${{ (item.price * item.quantity).toFixed(2) }}</td>
-                      <td>
-                        <button class="btn btn-danger" @click="removeItem(index)">Remove</button>
+                      <td style="vertical-align: middle">
+                        <div class="d-flex align-items-center justify-content-center gap-2">
+                          <button class="border-0 bg-transparent" @click="editItem(index)">
+                            <i class="bi bi-pencil icon-light fs-4"></i>
+                          </button>
+                          <button class="border-0 bg-transparent" @click="removeItem(index)">
+                            <i class="bi bi-trash fs-4 icon-danger"></i>
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   </tbody>
                   <tfoot>
-                    <tr>
-                      <td colspan="5" class="text-right">
+                    <tr class="align-items-center">
+                      <td colspan="6" class="text-end">
                         <h5>Total: ${{ cartTotal }}</h5>
                       </td>
                     </tr>
@@ -255,8 +258,12 @@ export default {
   },
   computed: {
     cartTotal() {
-      return this.cartItems.reduce((total, item) => total + item.price * item.quantity, 0)
+      const total = this.cartItems.reduce((total, item) => {
+        return total + item.price * item.quantity
+      }, 0)
+      return total.toFixed(2)
     },
+
     cartItemCount() {
       return this.cartItems.reduce((count, item) => count + item.quantity, 0)
     }
@@ -273,6 +280,9 @@ export default {
     removeItem(index) {
       this.cartItems.splice(index, 1)
       this.$emit('update-cart', this.cartItems)
+    },
+    editItem(index) {
+      this.$emit('edit-item', index)
     },
 
     addToCart(item) {
@@ -308,5 +318,12 @@ export default {
 .slide-leave-to {
   opacity: 0;
   transform: translateY(20px) ease in-out;
+}
+.card {
+  max-width: 800px;
+}
+td {
+  vertical-align: middle;
+  justify-content: space-between;
 }
 </style>

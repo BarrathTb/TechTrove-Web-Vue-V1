@@ -1,56 +1,60 @@
-<!-- <template>
-  <HeaderComponent
-    :products="allProducts"
-    @search="performSearch"
-    @load-product-cards="filterProducts"
-    @toggle-cart="toggleCartVisibility"
-    @toggle-login-modal="toggleLoginModal"
-    @toggle-blog="toggleBlogVisibility"
-    @toggle-build="toggleBuildVisibility"
-    @toggle-support="toggleSupportVisibility"
-    :cart-item-count="cartItemCount"
-    @update-cart-count="updateCartItemCount"
-  />
-  <ShoppingCart
-    class="shopping-cart"
-    :cart-items="cartItems"
-    v-show="cartVisible"
-    @update-cart="updateCart"
-    @edit-item="editIteminCart"
-  />
-  <BlogSection v-show="blogVisible" />
-  <SupportSection v-show="isSupportVisible" />
-  <PcBuilder
-    :products="allProducts"
-    v-show="buildVisible"
-    @add-to-cart="addToCart"
-    @toggle-build="closeBuilder"
-  />
-  <ProductDetailModal
-    :product="selectedProduct"
-    v-model="detailsVisible"
-    @add-to-cart="addToCart"
-  />
-  <LoginModal v-model="isModalVisible" />
-  <HeroImage />
+<template>
+  <router-view>
+    <HeaderComponent
+      :products="allProducts"
+      @search="performSearch"
+      @load-product-cards="filterProducts"
+      @toggle-cart="toggleCartVisibility"
+      @toggle-login-modal="toggleLoginModal"
+      @toggle-blog="toggleBlogVisibility"
+      @toggle-build="toggleBuildVisibility"
+      @toggle-support="toggleSupportVisibility"
+      :cart-item-count="cartItemCount"
+      @update-cart-count="updateCartItemCount"
+    />
+    <ShoppingCart
+      class="shopping-cart"
+      :cart-items="cartItems"
+      v-show="cartVisible"
+      @update-cart="updateCart"
+      @edit-item="editIteminCart"
+    />
+    <BlogSection v-show="blogVisible" />
+    <SupportSection v-show="isSupportVisible" />
+    <PcBuilder
+      :products="allProducts"
+      v-show="buildVisible"
+      @add-to-cart="addToCart"
+      @toggle-build="closeBuilder"
+    />
+    <ProductDetailModal
+      :product="selectedProduct"
+      :initialQuantity="selectedProductQuantity"
+      :isEditMode="isEditModal"
+      v-model="detailsVisible"
+      @add-to-cart="addToCart"
+      @update-cart-item="updateCartItem"
+    />
+    <LoginModal v-model="isModalVisible" />
+    <HeroImage />
 
-  <ProductCarousel :products="filteredProducts" @view-details="handleViewDetails" />
-
+    <ProductCarousel :products="filteredProducts" @view-details="handleViewDetails" />
+  </router-view>
   <AppFooter />
 </template>
 
 <script>
-import AppFooter from './components/PageSections/AppFooter.vue'
-import BlogSection from './components/PageSections/BlogSection.vue'
-import HeroImage from './components/PageSections/HeroImage.vue'
-import PcBuilder from './components/PageSections/PcBuilder.vue'
-import ProductCarousel from './components/PageSections/ProductCarousel.vue'
-import ShoppingCart from './components/PageSections/ShoppingCart.vue'
-import SupportSection from './components/PageSections/SupportSection.vue'
-import LoginModal from './components/modals/LoginModal.vue'
-import ProductDetailModal from './components/modals/ProductDetailModal.vue'
-import HeaderComponent from './components/siteNavs/HeaderComponent.vue'
-import { products } from './data.js'
+import AppFooter from '@/components/PageSections/AppFooter.vue'
+import BlogSection from '@/components/PageSections/BlogSection.vue'
+import HeroImage from '@/components/PageSections/HeroImage.vue'
+import PcBuilder from '@/components/PageSections/PcBuilder.vue'
+import ProductCarousel from '@/components/PageSections/ProductCarousel.vue'
+import ShoppingCart from '@/components/PageSections/ShoppingCart.vue'
+import SupportSection from '@/components/PageSections/SupportSection.vue'
+import LoginModal from '@/components/modals/LoginModal.vue'
+import ProductDetailModal from '@/components/modals/ProductDetailModal.vue'
+import HeaderComponent from '@/components/siteNavs/HeaderComponent.vue'
+import { products } from '@/data.js'
 
 export default {
   components: {
@@ -61,13 +65,15 @@ export default {
     PcBuilder,
     ProductDetailModal,
     LoginModal,
-
+    // ProductCard,
     AppFooter,
     ProductCarousel,
     HeroImage
   },
   data() {
     return {
+      selectedProductQuantity: 0,
+      isEditModal: false,
       cartItemCount: 0,
       cartItems: [],
       isSupportVisible: false,
@@ -84,6 +90,14 @@ export default {
       uniqueBrands: this.calculateUniqueBrands(products),
       allProducts: products,
       filteredProducts: products
+    }
+  },
+  watch: {
+    cartItems: {
+      handler(newVal) {
+        this.updateCartItemCount()
+      },
+      deep: true
     }
   },
 
@@ -108,13 +122,27 @@ export default {
       this.cartItems = updatedCartItems
       this.updateCartItemCount()
     },
-    editIteminCart(item, index) {
-      this.cartItems[index] = item
+    editIteminCart(index) {
+      const item = this.cartItems[index]
+      this.selectedProduct = item.product || item
+      this.selectedProductQuantity = item.quantity || 1
+      this.isEditModal = true
       this.detailsVisible = true
+    },
+    updateCartItem(item) {
+      const index = this.cartItems.findIndex((cartItem) => cartItem.id === item.product.id)
+
+      if (index >= 0) {
+        this.cartItems[index].quantity = item.quantity
+        this.updateCart(this.cartItems)
+      }
+
+      this.detailsVisible = false // Close the modal after updating
+      this.isEditModal = false // Reset the edit flag
     },
 
     updateCartItemCount() {
-      this.cartItemCount = this.cartItems.reduce((count, item) => count + item.quantity, 0)
+      this.cartItemCount = this.cartItems.reduce((total, item) => total + item.quantity, 0)
     },
 
     calculateUniqueCategories(products) {
@@ -191,18 +219,5 @@ export default {
       }
     }
   }
-}
-</script> -->
-<template>
-  <div id="app">
-    <router-view />
-  </div>
-</template>
-
-<script>
-// No need to import other components if they are not used here.
-export default {
-  name: 'App'
-  // ... You may keep global components or provide/inject data here
 }
 </script>

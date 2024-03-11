@@ -13,11 +13,17 @@ $colors: (
   'secondary': $custom-secondary,
   'success': $custom-success,
   'danger': $custom-danger,
-  'light': $custom-light
+  'light': $custom-light,
+  'positive': $custom-success,
+  'negative': $custom-danger
 );
 
+$primary: $custom-primary;
+$secondary: $custom-secondary;
+$positive: $custom-success;
+$negative: $custom-danger;
+@import 'quasar/src/css/variables.sass';
 @import 'node_modules/bootstrap/scss/bootstrap';
-// import Vuestic ui to override
 
 /* Layout & Grid */
 html,
@@ -478,6 +484,26 @@ select.select-input {
   }
   &:active {
     transform: scale(0.9);
+  }
+}
+.icon-danger {
+  color: $custom-danger;
+  transform: translateY(-5px) 0.5s ease;
+  &:hover {
+    text-shadow: 0 0 8px $custom-danger;
+  }
+  &:active {
+    transform: scale(0.9) 0.5s ease;
+  }
+}
+.icon-light {
+  color: $custom-light;
+  transform: translateY(-5px) 0.5s ease;
+  &:hover {
+    text-shadow: 0 0 8px $custom-light;
+  }
+  &:active {
+    transform: scale(0.9) 0.5s ease;
   }
 }
 

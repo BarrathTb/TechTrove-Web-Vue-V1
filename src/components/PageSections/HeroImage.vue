@@ -45,7 +45,7 @@ export default {
     scrollToProductCarousel() {
       const carouselElement = document.getElementById('productCarousel')
       if (carouselElement) {
-        carouselElement.scrollIntoView({ behavior: 'smooth' })
+        carouselElement.scrollIntoView({ behavior: 'smooth', duration: 1000 })
       }
     }
   }

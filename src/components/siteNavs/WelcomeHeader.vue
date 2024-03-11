@@ -1,0 +1,145 @@
+<template>
+  <header class="header">
+    <div class="bg-primary text-white">
+      <nav class="navbar navbar-expand navbar-dark bg-primary">
+        <div class="container-fluid align-items-center justify-content-start">
+          <div class="d-none d-lg-flex justify-content-end align-items-center flex-grow-1 pe-4">
+            <button
+              @click="toggleLoginModal"
+              class="nav-link border-0 bg-transparent"
+              id="login-modal"
+            >
+              <i class="bi bi-person fs-4 mb-2 mx-2 icon-success"></i>
+            </button>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <div class="header-main mx-auto w-100 h-100">
+      <nav class="navbar bg-body-secondary bg-secondary">
+        <div class="container-lg mx-auto">
+          <router-link class="navbar-brand me-5" to="/">
+            <img src="/images/TechTrove-logo.png" alt="TechTrove Logo" width="250" height="53" />
+          </router-link>
+
+          <ul class="nav nav-tabs d-none d-lg-flex mx-2">
+            <li class="nav-item left-tab border-none">
+              <a
+                class="nav-link text-light-bold main-nav-menu-item dropdown"
+                href="#"
+                id="navbarDropdownMenuLinkProducts"
+                role="button"
+                @click="toStore"
+              >
+                PRODUCTS
+              </a>
+            </li>
+
+            <li class="nav-item left-tab border-none">
+              <a
+                class="nav-link text-light-bold main-nav-menu-item dropdown"
+                href="#"
+                id="navbarDropdownMenuLinkProducts"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="true"
+                @click="toggleLoginModal"
+              >
+                LOGIN
+              </a>
+            </li>
+          </ul>
+
+          <button
+            class="d-lg-none border-0 bg-transparent"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasNavbar"
+            aria-controls="offcanvasNavbar"
+          >
+            <i class="bi bi-list fs-2 mb-2 mx-2 icon-success"></i>
+          </button>
+
+          <div
+            class="offcanvas offcanvas-end bg-secondary"
+            id="offcanvasNavbar"
+            data-bs-toggle="offcanvas"
+            title="Menu"
+            right
+          >
+            <ul class="nav nav-tabs d-none d-lg-flex mx-2">
+              <li class="nav-item left-tab border-none">
+                <a
+                  class="nav-link text-light-bold main-nav-menu-item dropdown"
+                  href="#"
+                  id="navbarDropdownMenuLinkProducts"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="true"
+                  @click="toStore"
+                >
+                  PRODUCTS
+                </a>
+              </li>
+
+              <li class="nav-item left-tab border-none">
+                <a
+                  class="nav-link text-light-bold main-nav-menu-item dropdown"
+                  href="#"
+                  id="navbarDropdownMenuLinkProducts"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="true"
+                  @click="toggleLoginModal"
+                >
+                  LOGIN
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+</template>
+
+<script>
+export default {
+  name: 'HeaderComponent',
+  props: {
+    products: {
+      type: Array,
+      required: true
+    },
+    modelValue: {
+      type: Boolean,
+      default: false
+    }
+  },
+  watch: {
+    modelValue(newValue) {
+      this.isModalVisible = newValue
+    }
+  },
+  emits: ['toggle-login-modal'],
+  data() {
+    return {
+      searchQuery: ''
+    }
+  },
+  methods: {
+    performSearch(event) {
+      event.preventDefault()
+      this.$emit('search', this.searchQuery)
+    },
+
+    toggleLoginModal() {
+      this.$emit('toggle-login-modal')
+    },
+    toStore() {
+      this.$router.push('/Home')
+    }
+  }
+}
+</script>

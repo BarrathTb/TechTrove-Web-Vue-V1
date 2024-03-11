@@ -28,13 +28,13 @@
           <div class="d-none d-lg-flex justify-content-center flex-grow-1">
             <ul class="navbar-nav ms-auto" aria-label="Tertiary Navigation">
               <li class="nav-item mx-2">
-                <a class="nav-link text-light-bold text-decoration-none">Categories</a>
+                <a class="nav-link text-light-bold text-decoration-none">Contact</a>
               </li>
               <li class="nav-item mx-2">
-                <a class="nav-link text-light-bold">Brands</a>
+                <a class="nav-link text-light-bold">Message Board</a>
               </li>
               <li class="nav-item mx-2">
-                <a class="nav-link text-light-bold">Blog</a>
+                <a class="nav-link text-light-bold">Builder Zone</a>
               </li>
               <li class="nav-item mx-2">
                 <a class="nav-link text-light-bold">Sale</a>
@@ -44,11 +44,18 @@
 
           <!-- Cart and Login Icons -->
           <div class="d-none d-lg-flex justify-content-end align-items-center flex-grow-1 pe-4">
-            <VaBadge :content="cartItemCount" overlap>
-              <button @click="toggleCartVisibility" class="nav-link border-0 bg-transparent">
-                <i class="bi bi-cart fs-4 mb-2 mx-2 icon-success"></i>
-              </button>
-            </VaBadge>
+            <button @click="toggleCartVisibility" class="nav-link border-0 bg-transparent">
+              <i class="bi bi-cart fs-4 mb-2 mx-2 icon-success">
+                <VaBadge
+                  v-if="cartItemCount > 0"
+                  :text="cartItemCount.toString()"
+                  overlap
+                  placement="top-end"
+                  color="danger"
+                ></VaBadge>
+              </i>
+            </button>
+
             <button @click="toggleLoginModal" class="nav-link" id="login-modal">
               <i class="bi bi-person fs-4 mb-2 mx-2 icon-success"></i>
             </button>
@@ -62,9 +69,10 @@
       <nav class="navbar bg-body-secondary bg-secondary">
         <div class="container-lg mx-auto">
           <!-- Brand Logo -->
-          <router-link class="navbar-brand me-5" to="/welcome.html">
-            <img src="/images/TechTrove-logo.png" alt="TechTrove Logo" width="250" height="53" />
-          </router-link>
+
+          <a href="/">
+            <img src="/images/TechTrove-logo.png" alt="TechTrove Logo" width="250" height="53"
+          /></a>
 
           <!-- Primary Navigation Links -->
           <ul class="nav nav-tabs d-none d-lg-flex mx-2">
@@ -83,20 +91,6 @@
                 class="dropdown-menu ms-2 my-auto border-primary"
                 aria-labelledby="navbarDropdownMenuLinkProducts"
               >
-                <li>
-                  <a
-                    class="dropdown-item text-light-bold menu-main"
-                    href="#categories-submenu"
-                    role="button"
-                    id="dropdownMenuLink"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                    aria-controls="categories-submenu"
-                  >
-                    Categories
-                  </a>
-                </li>
-
                 <li v-for="category in uniqueCategories" :key="category">
                   <a
                     @click="handleCategoryClick(category)"
