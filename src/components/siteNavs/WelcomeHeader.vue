@@ -20,12 +20,7 @@
       <nav class="navbar bg-body-secondary bg-secondary">
         <div class="container-lg mx-auto">
           <router-link class="navbar-brand me-5" to="/">
-            <img
-              src="/TechTrove-Web-Vue-V1/images/TechTrove-logo.png"
-              alt="TechTrove Logo"
-              width="250"
-              height="53"
-            />
+            <img src="/images/TechTrove-logo.png" alt="TechTrove Logo" width="250" height="53" />
           </router-link>
 
           <ul class="nav nav-tabs d-none d-lg-flex mx-2">
