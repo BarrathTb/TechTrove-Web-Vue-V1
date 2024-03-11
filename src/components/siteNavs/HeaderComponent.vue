@@ -71,11 +71,7 @@
           <!-- Brand Logo -->
 
           <a href="/">
-            <img
-              src="/TechTrove-Web-Vue-V1/images/TechTrove-logo.png"
-              alt="TechTrove Logo"
-              width="250"
-              height="53"
+            <img src="/images/TechTrove-logo.png" alt="TechTrove Logo" width="250" height="53"
           /></a>
 
           <!-- Primary Navigation Links -->
