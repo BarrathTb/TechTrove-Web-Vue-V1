@@ -1,10 +1,11 @@
-import { fileURLToPath, URL } from 'node:url'
+// vite.config.js
 
 import vue from '@vitejs/plugin-vue'
+import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 
-// https://vitejs.dev/config/
 export default defineConfig({
+  base: '/TechTrove-Web-Vue-V1/',
   plugins: [vue()],
   resolve: {
     alias: {
