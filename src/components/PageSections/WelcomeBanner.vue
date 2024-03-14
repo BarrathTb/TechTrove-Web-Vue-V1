@@ -68,13 +68,7 @@
     }
   }
 
-  @font-face {
-    font-family: 'Neon Tubes';
-    src: url("https://bitbucket.org/termyanen/webfonts/raw/77e439b11a11c4237b8cdc6466cea4cb4039c616/neontubes/neontubes-webfont.eot");
-    src: url("https://bitbucket.org/termyanen/webfonts/raw/77e439b11a11c4237b8cdc6466cea4cb4039c616/neontubes/neontubes-webfont.eot?#iefix") format("embedded-opentype"), url("https://bitbucket.org/termyanen/webfonts/raw/77e439b11a11c4237b8cdc6466cea4cb4039c616/neontubes/neontubes-webfont.woff2") format("woff2"), url("https://bitbucket.org/termyanen/webfonts/raw/77e439b11a11c4237b8cdc6466cea4cb4039c616/neontubes/neontubes-webfont.woff") format("woff"), url("https://bitbucket.org/termyanen/webfonts/raw/77e439b11a11c4237b8cdc6466cea4cb4039c616/neontubes/neontubes-webfont.ttf") format("truetype");
-    font-weight: normal;
-    font-style: normal;
-  }
+
 
 
 
