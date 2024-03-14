@@ -60,7 +60,7 @@ main {
 
     &:hover {
       color: lighten($custom-secondary, 10%);
-      transform: translateY(-5px);
+      transform: translateY(-5px) 0.5s ease;
     }
 
     &:active {
@@ -142,10 +142,6 @@ a.nav-link.text-light-bold.main-nav-menu-item:focus {
     background-color: $custom-secondary;
     color: white;
     border-radius: 5px;
-
-    &:hover {
-      background-color: lighten($custom-secondary, 10%);
-    }
 
     &:focus {
       box-shadow: 0 0 0 0.25rem rgba(181, 208, 234, 0.5);
@@ -247,7 +243,7 @@ a.nav-link.text-light-bold.main-nav-menu-item:focus {
     color: white;
   }
   &:hover {
-    background-color: darken($custom-success, 10%);
+    background-color: darken($custom-success, 10%) 0.5s ease;
   }
 
   &:focus {
@@ -278,7 +274,7 @@ select.select-input {
     border-color: $custom-success;
   }
   &:focus[icon] {
-    color: $custom-success;
+    color: $custom-success 0.5s ease;
   }
 }
 
@@ -295,11 +291,11 @@ select.select-input {
 
   &:hover {
     background-color: $custom-success;
-    background-color: darken($custom-success, 10%);
-    border-color: darken($custom-success, 10%);
+    background-color: darken($custom-success, 10%) 0.5s ease;
+    border-color: darken($custom-success, 10%) 0.5s ease;
     transform: translateY(-5px) 0.5s ease;
     font-weight: bold;
-    color: $custom-primary;
+    color: $custom-primary 0.5 ease;
   }
 
   &:active {
@@ -322,8 +318,8 @@ select.select-input {
     border-color 0.3s ease;
 
   &:hover {
-    background-color: darken(white, 10%);
-    border-color: darken(white, 10%);
+    background-color: darken(white, 10%) 0.5s ease;
+    border-color: darken(white, 10%) 0.5s ease;
     transform: translateY(-5px) 0.5s ease;
     color: $custom-primary;
   }
@@ -362,8 +358,18 @@ select.select-input {
   color: white;
   font-weight: bold;
   &:hover {
+    text-shadow: 0 0 6px rgba(255, 255, 255, 0.9) 0.5s ease;
+  }
+  &:active {
+    transform: scale(0.9);
+  }
+}
+.text-light-bold-2 {
+  color: white;
+  font-weight: bold;
+  &:hover {
     text-shadow: 0 0 6px rgba(255, 255, 255, 0.9);
-    transform: translateZ(20px) rotateX(30deg);
+    transform: scale(0.9) 0.5s ease;
   }
   &:active {
     transform: scale(0.9);
@@ -419,8 +425,8 @@ select.select-input {
   padding: 1rem;
 
   &:hover {
-    background-color: darken($custom-primary, 10%);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    background-color: darken($custom-primary, 10%) 0.5s ease;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2) 0.5s ease;
     color: white !important;
     transform: translateY(-5px);
     border-color: $custom-success;

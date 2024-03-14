@@ -7,11 +7,7 @@
       <div class="card-body text-light flex-grow-1 d-flex flex-column justify-content-between pb-1">
         <h5 class="card-title text-center font-size-md">{{ product.name }}</h5>
         <p class="card-text text-left font-size-sm">{{ product.description }}</p>
-        <button
-          type="button"
-          class="btn btn-success-2 view-product-details"
-          @click="handleViewDetails"
-        >
+        <button type="button" class="btn btn-success-2 view-product-details" @click="handleViewDetails">
           View Product Details
         </button>
       </div>
@@ -20,29 +16,29 @@
 </template>
 
 <script>
-export default {
-  name: 'ProductCard',
+  export default {
+    name: 'ProductCard',
 
-  props: {
-    product: {
-      type: Object,
-      required: true
+    props: {
+      product: {
+        type: Object,
+        required: true
+      },
+      modelValue: {
+        type: Boolean,
+        default: false
+      }
     },
-    modelValue: {
-      type: Boolean,
-      default: false
-    }
-  },
-  watch: {
-    modelValue(newValue) {
-      this.detailsVisible = newValue
-    }
-  },
-  emits: ['view-details'],
-  methods: {
-    handleViewDetails() {
-      this.$emit('view-details', this.product)
+    watch: {
+      modelValue(newValue) {
+        this.detailsVisible = newValue
+      }
+    },
+    emits: ['view-details'],
+    methods: {
+      handleViewDetails() {
+        this.$emit('view-details', this.product)
+      }
     }
   }
-}
 </script>

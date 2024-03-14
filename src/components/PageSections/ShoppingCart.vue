@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/no-mutating-props -->
 <template>
   <transition name="slide">
-    <div v-show="toggleCartVisibility" id="shopping-cart" class="bg-primary container-fluid">
+    <div v-if="toggleCartVisibility" id="shopping-cart" class="bg-primary container-fluid">
       <!-- Shopping Cart Section -->
       <section class="shopping-cart py-5">
         <div class="container">
@@ -22,11 +22,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr
-                      v-for="(item, index) in cartItems"
-                      :key="item.id"
-                      class="align-items-center"
-                    >
+                    <tr v-for="(item, index) in cartItems" :key="item.id" class="align-items-center">
                       <td><img :src="item.image" :alt="item.name" class="cartImage" /></td>
                       <td>{{ item.name }}</td>
                       <td>${{ item.price.toFixed(2) }}</td>
@@ -37,7 +33,7 @@
                           <button class="border-0 bg-transparent" @click="editItem(index)">
                             <i class="bi bi-pencil icon-light fs-4"></i>
                           </button>
-                          <button class="border-0 bg-transparent" @click="removeItem(index)">
+                          <button class="border-0 bg-transparent" @click="removeCartItem(index)">
                             <i class="bi bi-trash fs-4 icon-danger"></i>
                           </button>
                         </div>
@@ -52,14 +48,8 @@
                     </tr>
                     <tr>
                       <td colspan="4" class="text-left">
-                        <a
-                          href="#"
-                          class="btn btn-pill-light"
-                          data-bs-toggle="slideToggle"
-                          data-bs-target="#shopping-cart"
-                          @click="toggleCartVisibility"
-                          ><i class="fas fa-chevron-left"></i> Continue Shopping</a
-                        >
+                        <button class="btn btn-pill-light" @click="closeCart"><i class="fas fa-chevron-left"></i>
+                          &lt; Continue Shopping</button>
                       </td>
                       <td colspan="4" class="text-right">
                         <button id="checkoutButton" class="btn btn-pill-success">Checkout</button>
@@ -75,47 +65,25 @@
                 <div class="card-body">
                   <form id="shippingForm">
                     <div class="mb-3">
-                      <label for="first-name" class="form-label text-primary-bold"
-                        >First Name</label
-                      >
-                      <input
-                        class="form-select text-primary input-black-line"
-                        id="first-name"
-                        required
-                      />
+                      <label for="first-name" class="form-label text-primary-bold">First Name</label>
+                      <input class="form-select text-primary input-black-line" id="first-name" required />
                     </div>
                     <div class="mb-3">
                       <label for="last-name" class="form-label text-primary-bold">Last Name</label>
-                      <input
-                        class="form-select text-primary input-black-line"
-                        id="last-name"
-                        required
-                      />
+                      <input class="form-select text-primary input-black-line" id="last-name" required />
                     </div>
                     <div class="mb-3">
                       <label for="email" class="form-label text-primary-bold">Email</label>
-                      <input
-                        class="form-select text-primary input-black-line"
-                        id="email"
-                        required
-                      />
+                      <input class="form-select text-primary input-black-line" id="email" required />
                     </div>
                     <div class="mb-3">
                       <label for="phone" class="form-label text-primary-bold">Primary Phone</label>
-                      <input
-                        class="form-select text-primary input-black-line"
-                        id="phone"
-                        required
-                      />
+                      <input class="form-select text-primary input-black-line" id="phone" required />
                     </div>
 
                     <div class="mb-3">
                       <label for="address" class="form-label text-primary-bold">Address</label>
-                      <input
-                        class="form-select text-primary input-black-line"
-                        id="address"
-                        required
-                      />
+                      <input class="form-select text-primary input-black-line" id="address" required />
                     </div>
                     <div class="mb-3">
                       <label for="city" class="form-label text-primary-bold">City</label>
@@ -223,9 +191,7 @@
                     </div>
                     <div class="mb-3">
                       <input type="checkbox" class="text-primary select-input" id="billing-addy" />
-                      <label for="billing-addy" class="checkbox text-primary-bold"
-                        >Same as Billing Address?</label
-                      >
+                      <label for="billing-addy" class="checkbox text-primary-bold">Same as Billing Address?</label>
                     </div>
 
                     <div class="text-center">
@@ -245,85 +211,88 @@
 </template>
 
 <script>
-export default {
-  name: 'ShoppingCart',
-  props: {
-    cartItems: Array
-  },
-  data() {
-    return {
-      cartVisible: false,
-      products: Array
-    }
-  },
-  computed: {
-    cartTotal() {
-      const total = this.cartItems.reduce((total, item) => {
-        return total + item.price * item.quantity
-      }, 0)
-      return total.toFixed(2)
+  export default {
+    name: 'ShoppingCart',
+    props: {
+      cartItems: Array
     },
-
-    cartItemCount() {
-      return this.cartItems.reduce((count, item) => count + item.quantity, 0)
-    }
-  },
-
-  methods: {
-    toggleCartVisibility() {
-      this.$emit('toggle-cart')
-    },
-    updateCart() {
-      this.$emit('update-cart-count', this.cartItemCount)
-    },
-
-    removeItem(index) {
-      this.cartItems.splice(index, 1)
-      this.$emit('update-cart', this.cartItems)
-    },
-    editItem(index) {
-      this.$emit('edit-item', index)
-    },
-
-    addToCart(item) {
-      const productToAdd = item.product || item
-      const quantityToAdd = item.quantity || 1
-
-      const foundIndex = this.cartItems((cartItem) => cartItem.id === productToAdd.id)
-
-      if (foundIndex !== -1) {
-        this.cartItems[foundIndex].quantity += quantityToAdd
-      } else {
-        this.cartItems.push({ ...productToAdd, quantity: quantityToAdd })
+    data() {
+      return {
+        cartVisible: false,
+        products: Array
       }
-      this.$emit('update-cart', this.cartItems)
-      console.log('Item added to cart!', productToAdd, quantityToAdd)
     },
-    clearCart() {
-      this.cartItems = []
-      this.$emit('update-cart', this.cartItems)
+    computed: {
+      cartTotal() {
+        const total = this.cartItems.reduce((total, item) => {
+          return total + item.price * item.quantity
+        }, 0)
+        return total.toFixed(2)
+      },
+
+      cartItemCount() {
+        return this.cartItems.reduce((count, item) => count + item.quantity, 0)
+      }
+    },
+
+    methods: {
+      toggleCartVisibility() {
+        this.$emit('toggle-cart')
+        this.cartVisible = !this.cartVisible
+      },
+      updateCart() {
+        this.$emit('update-cart-count', this.cartItemCount)
+      },
+
+      removeCartItem(index) {
+
+        this.$emit('remove-cart-item', index)
+      },
+      editItem(index) {
+        this.$emit('edit-item', index)
+      },
+
+      addToCart(item) {
+        const productToAdd = item.product || item
+        const quantityToAdd = item.quantity || 1
+
+        const foundIndex = this.cartItems((cartItem) => cartItem.id === productToAdd.id && cartItem.quantity === quantityToAdd)
+
+        if (foundIndex !== -1) {
+          this.$emit('update-cart', this.cartItems)
+        }
+
+
+      },
+      clearCart() {
+
+        this.$emit('update-cart', this.cartItems)
+      }
     }
   }
-}
 </script>
 
 <style scoped>
-.slide-enter-active,
-.slide-leave-active {
-  transition:
-    opacity 0.5s,
-    transform 0.5s;
-}
-.slide-enter-from,
-.slide-leave-to {
-  opacity: 0;
-  transform: translateY(20px) ease in-out;
-}
-.card {
-  max-width: 800px;
-}
-td {
-  vertical-align: middle;
-  justify-content: space-between;
-}
+
+  .slide-enter-active,
+  .slide-leave-active {
+    transition:
+      opacity 0.5s,
+      transform 0.5s;
+  }
+
+  .slide-enter-from,
+  .slide-leave-to {
+    opacity: 0;
+    transform: translateY(20px) ease in-out;
+  }
+
+  .card {
+    max-width: 800px;
+  }
+
+  td {
+    vertical-align: middle;
+    justify-content: space-between;
+  }
 </style>

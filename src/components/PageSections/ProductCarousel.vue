@@ -1,23 +1,11 @@
 <template>
-  <div class="pb-5">
-    <div
-      id="productCarousel"
-      class="carousel slide align-items-center mx-3"
-      data-bs-ride="carousel"
-    >
+  <div class="pb-5 dafade">
+    <div id="productCarousel" class="carousel slide align-items-center mx-3" data-bs-ride="carousel">
       <div class="carousel-inner">
-        <div
-          v-for="(group, index) in groupedProducts"
-          :key="index"
-          :class="['carousel-item', { active: index === 0 }]"
-        >
+        <div v-for="(group, index) in groupedProducts" :key="index" :class="['carousel-item', { active: index === 0 }]">
           <div class="row g-3 mb-2 mt-2 justify-content-center">
-            <ProductCard
-              v-for="product in group"
-              :key="product.id"
-              :product="product"
-              @view-details="(product) => handleViewDetails(product)"
-            ></ProductCard>
+            <ProductCard v-for="product in group" :key="product.id" :product="product"
+              @view-details="(product) => handleViewDetails(product)"></ProductCard>
           </div>
         </div>
       </div>
@@ -34,52 +22,58 @@
 </template>
 
 <script>
-import ProductCard from './ProductCard.vue'
+  import ProductCard from './ProductCard.vue'
 
-export default {
-  name: 'ProductCarousel',
-  components: {
-    ProductCard
-  },
-  props: {
-    products: {
-      type: Array,
-      required: true
-    }
-  },
-  data() {
-    return {}
-  },
-  computed: {
-    groupedProducts() {
-      // Define the group size based on the screen width.
-      const groupSize = window.innerWidth < 768 ? 1 : 3
-
-      const groups = []
-      for (let i = 0; i < this.products.length; i += groupSize) {
-        groups.push(this.products.slice(i, i + groupSize))
-      }
-      return groups
-    }
-  },
-
-  methods: {
-    handleViewDetails(product) {
-      this.$emit('view-details', product)
-
-      console.log(product)
+  export default {
+    name: 'ProductCarousel',
+    components: {
+      ProductCard
     },
-    onResize() {
-      this.groupSize = window.innerWidth < 768 ? 1 : 3
-    }
-  },
-  mounted() {
-    this.onResize()
-    window.addEventListener('resize', this.onResize)
-  },
+    props: {
+      products: {
+        type: Array,
+        required: true
+      }
+    },
+    data() {
+      return {}
+    },
+    computed: {
+      groupedProducts() {
+        // Define the group size based on the screen width.
+        const groupSize = window.innerWidth < 768 ? 1 : 3
 
-  beforeUnmount() {
-    window.removeEventListener('resize', this.onResize)
+        const groups = []
+        for (let i = 0; i < this.products.length; i += groupSize) {
+          groups.push(this.products.slice(i, i + groupSize))
+        }
+        return groups
+      }
+    },
+
+    methods: {
+      handleViewDetails(product) {
+        this.$emit('view-details', product)
+
+        console.log(product)
+      },
+      onResize() {
+        this.groupSize = window.innerWidth < 768 ? 1 : 3
+      }
+    },
+    mounted() {
+      this.onResize()
+      window.addEventListener('resize', this.onResize)
+    },
+
+    beforeUnmount() {
+      window.removeEventListener('resize', this.onResize)
+    }
   }
-}
 </script>
+
+<style>
+  .dafade {
+    background: linear-gradient(180deg, #161616 0%, black 100%);
+  }
+</style>

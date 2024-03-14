@@ -1,5 +1,5 @@
 <template>
-  <VaModal ref="modal" v-model="isModalVisible" class="rounded">
+  <VaModal v-model="isModalVisible" class="rounded">
     <!-- The following div acts as the modal container -->
     <template #content>
       <div class="modal-lg rounded bg-primary p-4" style="border-radius: 10px">
@@ -105,11 +105,11 @@
 <script>
 export default {
   name: 'LoginModal',
-  emits: ['update:modelValue'],
+
   data() {
     return {
+      isModalVisible: false,
       credentials: {
-        isModalVisible: false,
         username: '',
         password: '',
         rememberMe: false
@@ -118,7 +118,8 @@ export default {
   },
   methods: {
     openModal() {
-      this.isModalVisible = true
+      this.$emit('update:modelValue', true)
+      this.credentials.isModalVisible = true
     },
     closeModal() {
       this.isModalVisible = false

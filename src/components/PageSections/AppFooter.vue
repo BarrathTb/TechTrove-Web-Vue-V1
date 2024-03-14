@@ -1,8 +1,8 @@
 <template>
-  <footer class="bg-secondary text-light">
+  <footer class="da-fade text-light">
     <div class="container">
       <div class="row g-4 justify-content-between px-2">
-        <div class="col-lg-4 col-md-6 mb-3">
+        <div class="col-lg-4 col-md-6">
           <h5>About Us</h5>
           <p>
             Our mission is to deliver outstanding service and products to our customers. Learn more
@@ -11,21 +11,16 @@
           <a href="/about" class="text-decoration-none btn btn-outline-light">Learn More</a>
         </div>
 
-        <div class="col-lg-4 col-md-6 mb-3">
+        <div class="col-lg-4 col-md-6 ">
           <h5>Newsletter</h5>
           <p>
             Stay updated with the latest news and special offers by subscribing to our newsletter.
           </p>
 
           <form @submit.prevent="subscribeToNewsletter">
-            <div class="input-group mb-3">
-              <input
-                v-model="email"
-                type="email"
-                class="form-control"
-                placeholder="Enter your email"
-                aria-label="Recipient's email"
-              />
+            <div class="input-group ">
+              <input v-model="email" type="email" class="form-control" placeholder="Enter your email"
+                aria-label="Recipient's email" />
               <button class="btn btn-outline-light ms-1 subscribe-button" type="submit">
                 Subscribe
               </button>
@@ -40,24 +35,18 @@
               <a href="/" class="text-decoration-none btn btn-outline-light my-1 w-100">Home</a>
             </div>
             <div class="col-6">
-              <a href="/products" class="text-decoration-none btn btn-outline-light my-1 w-100"
-                >Products</a
-              >
+              <a href="/products" class="text-decoration-none btn btn-outline-light my-1 w-100">Products</a>
             </div>
             <div class="col-6">
-              <a href="/services" class="text-decoration-none btn btn-outline-light my-1 w-100"
-                >Services</a
-              >
+              <a href="/services" class="text-decoration-none btn btn-outline-light my-1 w-100">Services</a>
             </div>
             <div class="col-6">
-              <a href="/contact" class="text-decoration-none btn btn-outline-light my-1 w-100"
-                >Contact</a
-              >
+              <a href="/contact" class="text-decoration-none btn btn-outline-light my-1 w-100">Contact</a>
             </div>
           </div>
         </div>
 
-        <div class="col-lg-2 col-md-6 mb-3">
+        <div class="col-lg-2 col-md-6 ">
           <h5>Contact Us</h5>
           <address>
             <strong>Email:</strong> contact@example.com<br />
@@ -88,23 +77,27 @@
 </template>
 
 <script>
-export default {
-  name: 'AppFooter',
-  data() {
-    return {
-      email: ''
-    }
-  },
-  methods: {
-    subscribeToNewsletter() {
-      console.log('Subscribing with email:', this.email)
+  export default {
+    name: 'AppFooter',
+    data() {
+      return {
+        email: ''
+      }
+    },
+    methods: {
+      subscribeToNewsletter() {
+        console.log('Subscribing with email:', this.email)
+      }
     }
   }
-}
 </script>
 
 <style scoped>
-.subscribe-button {
-  z-index: 10;
-}
+  .subscribe-button {
+    z-index: -10;
+  }
+
+  .da-fade {
+    background: linear-gradient(180deg, black 0%, #2c2c2c 100%);
+  }
 </style>
