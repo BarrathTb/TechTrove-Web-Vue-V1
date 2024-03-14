@@ -76,7 +76,7 @@
 
   .accordion-button.accordion-title {
     /* Increased minimum font size and scaling factor for demonstration purposes */
-    font-size: calc(1rem + 1vw);
+    font-size: calc(.7rem + 1vw);
   }
 
   .accordion-button:hover {
