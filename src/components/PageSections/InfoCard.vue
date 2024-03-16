@@ -38,22 +38,12 @@
 
 <style scoped>
 
-  /* Scoped Styles for InfoCard */
+
   .bg-secondary {
-    /* Custom background color for the card */
+
     background-color: #6c757d;
-    /* Example: dark gray */
+
   }
 
-  .card-title {
-    /* Style for the card title */
-  }
 
-  .card-text {
-    /* Style for the card text */
-  }
-
-  .product-detail-icon {
-    /* Style for the product detail icon/link */
-  }
 </style>

@@ -1,10 +1,10 @@
 <template>
   <router-view>
-    <WelcomeHeader @toggle-login-modal="toggleLoginModal" />
+    <WelcomeHeader :products="yourProductsArray" @toggle-login-modal="toggleLoginModal" />
     <WelcomeSection />
-    <HowItWorksAccordion
-      class="accordian-body row g-3 align-items-center p-auto m-auto bg-primary  justify-content-between"
-      title="How It Works" heading-id="headingOne" collapse-id="collapseOne">
+    <HowItWorksAccordion v-model="activePanels" @accordion-opened="handleAccordionOpened"
+      class="accordion-body accord-one row g-3 align-items-center p-auto m-auto bg-primary justify-content-between"
+      title="How It Works" :heading-id="headingOne" :collapse-id="collapseOne">
 
       <info-card class="flex-grow-1 " title="Step 1" image-src="/TechTrove-Web-Vue-V1/images/tech-entry-3.png"
         description="Search for the computer parts you need. Find the best deals and quality products."></info-card>
@@ -16,9 +16,9 @@
         description="Review your cart and make any changes, proceed to checkout when ready. Don't forget to try the pc builder to make your dream pc come to life."></info-card>
 
     </HowItWorksAccordion>
-    <HowItWorksAccordion
-      class="accordian-body row g-3 align-items-center p-auto m-auto bg-primary  justify-content-between"
-      title="Join the TechTrove Team" headingId="headingTwo" collapseId="collapseTwo">
+    <HowItWorksAccordion @accordion-opened="handleAccordionOpened"
+      class="accordion-body accord-two row g-3 align-items-center p-auto m-auto bg-primary justify-content-between"
+      title="Join the TechTrove Team" :heading-id="headingTwo" :collapse-id="collapseTwo">
 
       <info-card class="flex-grow" title="As a Customer" image-src="/TechTrove-Web-Vue-V1/images/tech-entry-6.png"
         description="Provide assistance to other customers with product review and recommendations. Earn rewards for your contributions to the community. Contribute to the blogs for add ons to the tech community."></info-card>
@@ -59,9 +59,17 @@
     },
     data() {
       return {
-        collapse: false,
+
         loginVisible: false,
-        detailsVisible: false,
+        headingOne: 'headingOne',
+        collapseOne: 'collapseOne',
+        headingTwo: 'headingTwo',
+        collapseTwo: 'collapseTwo',
+        panels: {
+          type: Array,
+          default: () => [],
+        },
+
 
       }
     },
@@ -69,11 +77,25 @@
     methods: {
 
       toggleLoginModal() {
-        this.loginVisible = !this.Visible
+        this.loginVisible = !this.loginVisible;
       },
-      toggleCollapse() {
-        this.collapse = !this.collapse
-      }
-    }
-  }
+      handleAccordionOpened(collapseId) {
+
+        setTimeout(() => {
+          const element = document.getElementById(collapseId);
+          if (element) {
+            const elementRect = element;
+            const absoluteElementTop = elementRect.top + window.scrollY;
+            const fixedOffset = 50;
+            window.scrollTo({
+              top: absoluteElementTop - fixedOffset,
+              behavior: 'smooth'
+            });
+          }
+        }, 1100); // Slightly longer than the transition duration
+
+      },
+
+    },
+  };
 </script>

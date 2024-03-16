@@ -4,7 +4,7 @@
       <div class="container">
         <div class="card bg-secondary rounded-3 text-light mx-auto" style="max-width: 900px">
           <div class="card-body">
-            <h2 class="text-center mb-4">Build Your Custom PC</h2>
+            <h2 class="text-center tube-text-purple mb-4">Build Your Custom PC</h2>
             <form @submit.prevent="createBuild">
               <!-- Motherboards selection -->
               <div class="mb-3">
@@ -76,10 +76,10 @@
 
               <!-- Buttons -->
               <div class="text-center d-flex justify-content-between">
-                <button category="reset" class="btn btn-danger mt-2" @click="handleGoBack">
+                <button category="reset" class="btn btn-danger-2 mt-2" @click="handleGoBack">
                   &lt; Go Back
                 </button>
-                <button @click="createBuild, closeBuilder" category="submit" class="btn btn-success-2 mt-2">
+                <button @click="createBuild, closeBuilder" category="submit" class="btn btn-purple mt-2">
                   Create Build >
                 </button>
               </div>
@@ -147,7 +147,7 @@
         this.$emit('toggle-build')
       },
       closeBuilder() {
-        this.$emit('toggle-build') // Make sure this matches the listener on the parent.
+        this.$emit('toggle-build')
       },
       handleGoBack() {
         this.resetBuilder()
@@ -155,7 +155,7 @@
       },
 
       resetBuilder() {
-        // Logic to reset the builder form
+
         Object.keys(this.selectedParts).forEach((key) => {
           this.selectedParts[key] = null
         })
@@ -178,4 +178,26 @@
     opacity: 0;
     transform: translateY(20px) ease in-out;
   }
+
+  #pc-builder {
+
+
+    .select-input {
+      border-color: #4b0082;
+
+
+      &:focus {
+        box-shadow: 0 0 0 0.2rem rgba(#4b0082, 0.25);
+
+        color: white;
+        border-color: #4b0082;
+      }
+
+
+      &:active {
+        border-color: #4b0082 0.5s ease;
+      }
+    }
+  }
+
 </style>

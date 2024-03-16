@@ -1,24 +1,17 @@
 <template>
   <div class="container-fluid welcome-container-two bg-primary">
-    <div class="col-12 ">
-      <div class="accordion accordion-flush bg-primary">
-        <div class="accordion-item bg-primary">
-          <h2 class="accordion-header" :id="headingId">
-            <button class="accordion-button accordion-title collapsed bg-primary p-4 rounded" type="button"
-              @click="toggleCollapse" :aria-expanded="!isCollapsed.toString()" :aria-controls="collapseId"
-              :aria-labelledby="headingId">
-              {{ title }}
-            </button>
-          </h2>
-          <div :id="collapseId" :class="['accordion-collapse', 'collapse', { show: !isCollapsed }]"
-            :aria-labelledby="headingId">
-            <div class="row m-4 g-3">
-              <slot></slot>
-            </div>
-          </div>
+    <VaAccordion v-model="activeIndex" class="bg-primary  max-w-md" multiple popout>
+      <VaCollapse :header="title" class="accordion-item  bg-primary text-light" :key="collapseId" @opened="handleOpened"
+        @closed="handleClosed">
+        <template v-slot:icon="{ expand }">
+          <va-icon v-if="expand" name="expand_less" />
+          <va-icon v-else name="expand_more" />
+        </template>
+        <div class="row m-4 g-3">
+          <slot></slot>
         </div>
-      </div>
-    </div>
+      </VaCollapse>
+    </VaAccordion>
   </div>
 </template>
 
@@ -27,60 +20,68 @@
     name: 'HowItWorksAccordion',
     props: {
       title: String,
-      headingId: String,
       collapseId: String,
     },
     data() {
       return {
-        isCollapsed: true,
+        activeIndex: [false, false],
       };
     },
     methods: {
-      toggleCollapse() {
-        this.isCollapsed = !this.isCollapsed;
+      handleOpened() {
+        this.$emit('accordion-opened', this.collapseId);
+      },
+      handleClosed() {
+        this.$emit('accordion-closed', this.collapseId);
       },
     },
   };
 </script>
 
-<style scoped>
-  .accordion-button:not(.collapsed)::after {
-    filter: invert(1) grayscale(100%) brightness(200%);
+
+<style>
+
+
+  :root {
+    --primary-color: #0eaa2a;
+    --inverted-color: #000;
   }
 
-  .accordion-button.collapsed::after {
-    filter: invert(1) grayscale(100%) brightness(200%);
+  .va-collapse__header:focus {
+
+    color: var(--light-color);
+
   }
 
-  .accordion-button.collapsed:focus {
-    border-color: #0ee636;
-    color: #0ee636;
-    box-shadow: inset 0 0 0 1px #0ee636;
+  .va-collapse__header:hover {
+    text-shadow: 0 0 0 8px var(--primary-color) 0.5s ease;
+
   }
 
-  .accordion-button:not(.collapsed):focus {
-    background-color: #0ee636;
+
+  .va-collapse--expanded .va-collapse__header,
+  .va-collapse__header.active {
+
+    color: var(--inverted-color);
+    box-shadow: inset 0 0 0 1px var(--primary-color);
+    background-color: var(--primary-color);
   }
 
-  .accordion-button:hover {
-    background-color: #0ee636;
-    box-shadow: inset 0 0 0 1px #0ee636;
-  }
 
-  .accordion-button.active,
-  .accordion-button:not(.collapsed) {
-    border-color: #0ee636;
-    box-shadow: inset 0 0 0 1px #0ee636;
-    background-color: #0ee636;
-  }
-
-  .accordion-button.accordion-title {
-    /* Increased minimum font size and scaling factor for demonstration purposes */
+  .va-collapse__header-title {
     font-size: calc(.7rem + 1vw);
   }
 
-  .accordion-button:hover {
-    background-color: #0ee636;
-    box-shadow: inset 0 0 0 1px #0ee636;
+
+  .va-collapse__content-enter-active,
+  .va-collapse__content-leave-active {
+    transition: max-height 1s ease-in-out;
   }
+
+  .va-collapse__content-enter,
+  .va-collapse__content-leave-to {
+    max-height: 0;
+    overflow: hidden;
+  }
+
 </style>

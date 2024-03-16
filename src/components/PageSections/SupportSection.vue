@@ -4,7 +4,7 @@
       <div class="container">
         <div class="card bg-secondary rounded-3 text-light mx-auto" style="max-width: 900px">
           <div class="card-body">
-            <h3>Support Information</h3>
+            <h3 class="tube-text-yellow">Support Information</h3>
             <p>
               If you need assistance with any of our products or services, please reach out to us:
             </p>
@@ -29,27 +29,29 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      isSupportVisible: false
-    }
-  },
-  methods: {
-    toggleSupportVisibility() {
-      this.isSupportVisible = !this.isSupportVisible
+  export default {
+    data() {
+      return {
+        isSupportVisible: false
+      }
+    },
+    methods: {
+      toggleSupportVisibility() {
+        this.isSupportVisible = !this.isSupportVisible
+      }
     }
   }
-}
 </script>
 
 <style>
-.slide-enter-active,
-.slide-leave-active {
-  transition: opacity 0.5s;
-}
-.slide-enter-from,
-.slide-leave-to {
-  opacity: 0;
-}
+
+  .slide-enter-active,
+  .slide-leave-active {
+    transition: opacity 0.5s;
+  }
+
+  .slide-enter-from,
+  .slide-leave-to {
+    opacity: 0;
+  }
 </style>

@@ -42,3 +42,19 @@
     }
   }
 </script>
+<style scoped>
+  .card.product-card {
+    padding: 1rem;
+
+    &:hover {
+      background-color: darken(#2c2c2c, 10%) 0.5s ease;
+      box-shadow: 0 0 10px #0ee636 0.5s ease;
+      color: white !important;
+      transform: translateY(-5px);
+      border-color: #0ee636;
+      transition:
+        transform 0.5s ease,
+        border-color 0.5s ease;
+    }
+  }
+</style>

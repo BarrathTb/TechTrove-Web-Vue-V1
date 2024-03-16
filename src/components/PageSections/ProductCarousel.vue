@@ -40,7 +40,7 @@
     },
     computed: {
       groupedProducts() {
-        // Define the group size based on the screen width.
+
         const groupSize = window.innerWidth < 768 ? 1 : 3
 
         const groups = []

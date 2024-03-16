@@ -6,6 +6,10 @@ $custom-success: #0ee636;
 $custom-danger: #f00;
 $custom-light: #eee;
 $transition-duration: 0.3s;
+$custom-purple: #4b0082;
+$custom-pink: #ee82ee;
+$custom-blue: #0000ff;
+$custom-yellow: #ffff00;
 
 // Override Bootstrap variables
 $colors: (
@@ -68,13 +72,6 @@ main {
     }
   }
 }
-@media (min-width: 768px) {
-  .hero-image {
-    background-size: cover;
-    background-position: bottom calc(100% - 10%);
-    height: 50vw;
-  }
-}
 
 .dropdown-menu {
   background-color: $custom-secondary; /* Make sure you have defined this variable in your SCSS */
@@ -133,27 +130,27 @@ a.nav-link.text-light-bold.main-nav-menu-item:focus {
   background-color: darken($custom-success, 20%);
 }
 
-.accordion-item {
-  border-radius: 5px;
-  .accordion-button {
-    transition:
-      background-color 0.3s,
-      color 0.3s;
-    background-color: $custom-secondary;
-    color: white;
-    border-radius: 5px;
+// .accordion-item {
+//   border-radius: 5px;
+//   .accordion-button {
+//     transition:
+//       background-color 0.3s,
+//       color 0.3s;
+//     background-color: $custom-secondary;
+//     color: white;
+//     border-radius: 5px;
 
-    &:focus {
-      box-shadow: 0 0 0 0.25rem rgba(181, 208, 234, 0.5);
-      background-color: $custom-success;
-    }
+//     &:focus {
+//       box-shadow: 0 0 0 0.25rem rgba(181, 208, 234, 0.5);
+//       background-color: $custom-success;
+//     }
 
-    &.collapsed {
-      background-color: $custom-secondary !important;
-      color: white !important;
-    }
-  }
-}
+//     &.collapsed {
+//       background-color: $custom-secondary !important;
+//       color: white !important;
+//     }
+//   }
+// }
 
 .btn-primary {
   background-color: $custom-primary;
@@ -210,6 +207,26 @@ a.nav-link.text-light-bold.main-nav-menu-item:focus {
   }
 }
 
+.btn-danger-2 {
+  background-color: $custom-danger;
+  border-color: $custom-danger;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease;
+  border-radius: 50rem;
+  color: $custom-light;
+  font-weight: bold;
+
+  &:hover {
+    background-color: darken($custom-danger, 20%);
+    border-color: darken($custom-danger, 20%);
+    transform: translateY(-5px) 0.5s ease;
+  }
+  &:active {
+    transform: scale(0.9);
+  }
+}
+
 .btn-success-2 {
   background-color: $custom-success;
   border-color: $custom-success;
@@ -223,6 +240,49 @@ a.nav-link.text-light-bold.main-nav-menu-item:focus {
   &:hover {
     background-color: darken($custom-success, 10%);
     border-color: darken($custom-success, 10%);
+    transform: translateY(-5px) 0.5s ease;
+    font-weight: bold;
+    color: $custom-light;
+  }
+  &:active {
+    transform: scale(0.9);
+  }
+}
+
+.btn-purple {
+  background-color: $custom-purple;
+  border-color: $custom-purple;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease;
+  border-radius: 50rem;
+  color: $custom-light;
+  font-weight: bold;
+
+  &:hover {
+    background-color: darken($custom-purple, 10%);
+    border-color: darken($custom-purple, 10%);
+    transform: translateY(-5px) 0.5s ease;
+    font-weight: bold;
+    color: $custom-light;
+  }
+  &:active {
+    transform: scale(0.9);
+  }
+}
+.btn-blue {
+  background-color: $custom-blue;
+  border-color: $custom-blue;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease;
+  border-radius: 50rem;
+  color: $custom-light;
+  font-weight: bold;
+
+  &:hover {
+    background-color: darken($custom-blue, 10%);
+    border-color: darken($custom-blue, 10%);
     transform: translateY(-5px) 0.5s ease;
     font-weight: bold;
     color: $custom-light;
@@ -421,7 +481,29 @@ select.select-input {
     transform: scale(0.9);
   }
 }
-.product-card {
+.card {
+  max-width: 800px;
+  overflow-x: auto;
+  display: block;
+  border: #2c2c2c;
+}
+
+.table-responsive {
+  /* Add this class */
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch; /* For smooth scrolling on iOS devices */
+}
+
+@media (max-width: 768px) {
+  /* Adjust breakpoint as needed for smaller devices */
+  .card {
+    margin-left: 15px; /* Add space for the scrollbar */
+    margin-right: 15px; /* Add space for the scrollbar */
+  }
+}
+.card.product-card {
   padding: 1rem;
 
   &:hover {
@@ -467,9 +549,7 @@ select.select-input {
 
 .product-card .card-img-contain {
   height: 220px;
-
   max-width: 100%;
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -555,10 +635,225 @@ select.select-input {
   box-shadow: none;
 }
 .cartImage {
-  width: 50px;
-  height: 50px;
+  width: 15vw;
+  max-width: 60px;
+  min-width: 40px;
+  height: auto;
   display: block;
   border-radius: 10px;
+  padding-right: 5px;
+}
+
+@media (max-width: 768px) {
+  .cartImage {
+    width: 15vw;
+    height: 5vh;
+    max-width: 25px;
+  }
+  .tube-text {
+    font-size: 10vw;
+    font-weight: 100;
+    color: #d4eaff;
+    text-shadow:
+      0 0 0 transparent,
+      0 0 10px #0ee636,
+      0 0 20px #0ee636,
+      0 0 40px #0ee636,
+      0 0 100px #0ee636,
+      0 0 200px #0ee636,
+      0 0 300px #0ee636,
+      0 0 500px #0ee636;
+    animation: blink 4s infinite alternate;
+  }
+  .tube-text-pink {
+    font-size: 10vw;
+    font-weight: 100;
+    color: #d4eaff;
+    text-shadow:
+      0 0 0 transparent,
+      0 0 10px #ee82ee,
+      0 0 20px #ee82ee,
+      0 0 40px #ee82ee,
+      0 0 100px #ee82ee,
+      0 0 200px #ee82ee,
+      0 0 300px #ee82ee,
+      0 0 500px #ee82ee;
+    animation: blink 4s infinite alternate;
+  }
+  .tube-text-purple {
+    font-size: 10vw;
+    font-weight: 100;
+    color: #d4eaff;
+    text-shadow:
+      0 0 0 transparent,
+      0 0 10px #4b0082,
+      0 0 20px #4b0082,
+      0 0 40px #4b0082,
+      0 0 100px #4b0082,
+      0 0 200px #4b0082,
+      0 0 300px #4b0082,
+      0 0 500px #4b0082;
+    animation: blink 4s infinite alternate;
+  }
+  .tube-text-blue {
+    font-size: 10vw;
+    font-weight: 100;
+    color: #d4eaff;
+    text-shadow:
+      0 0 0 transparent,
+      0 0 10px #0000ff,
+      0 0 20px #0000ff,
+      0 0 40px #0000ff,
+      0 0 100px #0000ff,
+      0 0 200px #0000ff,
+      0 0 300px #0000ff,
+      0 0 500px #0000ff;
+    animation: blink 4s infinite alternate;
+  }
+  .tube-text-yellow {
+    font-size: 10vw;
+    font-weight: 100;
+    color: #d4eaff;
+    text-shadow:
+      0 0 0 transparent,
+      0 0 10px #ffff00,
+      0 0 20px #ffff00,
+      0 0 40px #ffff00,
+      0 0 100px #ffff00,
+      0 0 200px #ffff00,
+      0 0 300px #ffff00,
+      0 0 500px #ffff00;
+    animation: blink 4s infinite alternate;
+  }
+  .tube-text-aqua {
+    font-size: 10vw;
+    font-weight: 100;
+    color: #d4eaff;
+    text-shadow:
+      0 0 0 transparent,
+      0 0 10px #0bcad8,
+      0 0 20px #0bcad8,
+      0 0 40px #0bcad8,
+      0 0 100px #0bcad8,
+      0 0 200px #0bcad8,
+      0 0 300px #0bcad8,
+      0 0 500px #0bcad8;
+    animation: blink 4s infinite alternate;
+  }
+}
+@media (min-width: 768px) {
+  .tube-text {
+    font-size: 2vw;
+    font-weight: 100;
+    color: #d4eaff;
+    text-shadow:
+      0 0 0 transparent,
+      0 0 10px #0ee636,
+      0 0 20px rgba(38, 149, 255, 0.5),
+      0 0 40px #0ee636,
+      0 0 100px #0ee636,
+      0 0 200px #0ee636,
+      0 0 300px #0ee636,
+      0 0 500px #0ee636;
+    animation: blink 4s infinite alternate;
+  }
+  .tube-text-pink {
+    font-size: 2vw;
+    font-weight: 100;
+    color: #d4eaff;
+    text-shadow:
+      0 0 0 transparent,
+      0 0 10px #ee82ee,
+      0 0 20px #ee82ee,
+      0 0 40px #ee82ee,
+      0 0 100px #ee82ee,
+      0 0 200px #ee82ee,
+      0 0 300px #ee82ee,
+      0 0 500px #ee82ee;
+    animation: blink 4s infinite alternate;
+  }
+  .tube-text-purple {
+    font-size: 2vw;
+    font-weight: 100;
+    color: #d4eaff;
+    text-shadow:
+      0 0 0 transparent,
+      0 0 10px #4b0082,
+      0 0 20px #4b0082,
+      0 0 40px #4b0082,
+      0 0 100px #4b0082,
+      0 0 200px #4b0082,
+      0 0 300px #4b0082,
+      0 0 500px #4b0082;
+    animation: blink 4s infinite alternate;
+  }
+  .tube-text-blue {
+    font-size: 2vw;
+    font-weight: 100;
+    color: #d4eaff;
+    text-shadow:
+      0 0 0 transparent,
+      0 0 10px #0000ff,
+      0 0 20px #0000ff,
+      0 0 40px #0000ff,
+      0 0 100px #0000ff,
+      0 0 200px #0000ff,
+      0 0 300px #0000ff,
+      0 0 500px #0000ff;
+    animation: blink 4s infinite alternate;
+  }
+  .tube-text-yellow {
+    font-size: 2vw;
+    font-weight: 100;
+    color: #d4eaff;
+    text-shadow:
+      0 0 0 transparent,
+      0 0 10px #ffff00,
+      0 0 20px #ffff00,
+      0 0 40px #ffff00,
+      0 0 100px #ffff00,
+      0 0 200px #ffff00,
+      0 0 300px #ffff00,
+      0 0 500px #ffff00;
+    animation: blink 4s infinite alternate;
+  }
+  .tube-text-aqua {
+    font-size: 2vw;
+    font-weight: 100;
+    color: #d4eaff;
+    text-shadow:
+      0 0 0 transparent,
+      0 0 10px #0bcad8,
+      0 0 20px #0bcad8,
+      0 0 40px #0bcad8,
+      0 0 100px #0bcad8,
+      0 0 200px #0bcad8,
+      0 0 300px #0bcad8,
+      0 0 500px #0bcad8;
+    animation: blink 4s infinite alternate;
+  }
+}
+
+@keyframes blink {
+  50% {
+    opacity: 1;
+  }
+
+  52% {
+    opacity: 0.8;
+  }
+
+  53% {
+    opacity: 1;
+  }
+
+  55% {
+    opacity: 0.2;
+  }
+
+  56% {
+    opacity: 1;
+  }
 }
 
 // Place specific media queries, animations or keyframes below
@@ -568,4 +863,8 @@ select.select-input {
     background-position: bottom calc(100% - 10%);
     height: 50vw;
   }
+}
+
+.login-modal {
+  z-index: 999;
 }

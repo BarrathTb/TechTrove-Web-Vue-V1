@@ -110,9 +110,7 @@
     width: 100%;
   }
 
-
   .video-container iframe {
-
     width: 100vw;
     height: 100vh;
     min-width: 100%;
@@ -125,28 +123,22 @@
   }
 
   #welcome-section {
-
     position: relative;
     z-index: 1;
     height: 60vh;
     top: 20;
-
   }
 
   @media (max-width: 768px) {
 
     .video-container {
       display: none;
-
     }
 
     #welcome-section {
-
       position: flex;
       z-index: 1;
       height: 20vh;
-
-
       background-image: linear-gradient(to bottom, #161616, rgba(0, 128, 128, 0)),
         url('/TechTrove-Web-Vue-V1/images/colorsplash.png');
       background-size: cover;
@@ -155,13 +147,6 @@
       width: 100vw;
       height: 20vh;
       transition: height 2s;
-
-
-
     }
-
   }
-
-
-
 </style>

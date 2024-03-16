@@ -9,7 +9,7 @@
             <form class="search-form w-100 d-flex">
               <input v-model="searchQuery" class="form-control search-input" type="search"
                 placeholder="Search for computer parts, brands, and accessories" aria-label="Search" />
-              <button class="btn btn-success ms-2" @click.prevent="performSearch($event)" type="submit">
+              <button class="btn btn-success-2 ms-2" @click.prevent="performSearch($event)" type="submit">
                 Search
               </button>
             </form>
@@ -22,7 +22,7 @@
                 <a class="nav-link text-light-bold-2 text-decoration-none">Contact</a>
               </li>
               <li class="nav-item mx-2">
-                <a class="nav-link text-light-bold-2">Message Board</a>
+                <a class="nav-link text-light-bold-2" @click.prevent="toggleMessageBoard">Message Board</a>
               </li>
               <li class="nav-item mx-2">
                 <a class="nav-link text-light-bold-2" href="#" @click.prevent="toggleBuilderZoneVisibility">Builder
@@ -55,11 +55,10 @@
     <div class="header-main mx-auto w-100 h-100">
       <nav class="navbar bg-body-secondary bg-secondary">
         <div class="container-lg mx-auto">
-          <!-- Brand Logo -->
-          <!-- <router-link class="navbar-brand me-5" to="/Welcome"> -->
+
           <a href="/">
             <img src="/images/TechTrove-logo.png" alt="TechTrove Logo" width="250" height="53" /></a>
-          <!-- </router-link> -->
+
 
           <!-- Primary Navigation Links -->
           <ul class="nav nav-tabs d-none d-lg-flex mx-2">
@@ -108,23 +107,121 @@
             </li>
           </ul>
 
-          <!-- Toggler for Mobile View -->
-          <button class="d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
-            aria-controls="offcanvasNavbar">
-            <i class="bi bi-menu"></i>
+
+
+
+          <button class="d-lg-none border-0 bg-transparent ms-auto" type="button" @click="toggleOffcanvasVisibility">
+            <i class="bi bi-list fs-2 mb-2 tube-text mx-2 icon-success"></i>
           </button>
 
-          <!-- Off Canvas Content -->
-          <div id="offcanvasNavbar" title="Menu" right></div>
+
+
+          <VaSidebar>
+            <div :class="{ 'show': sidebarVisible }" class="offcanvas offcanvas-end bg-primary" id="offcanvasNavbar"
+              aria-labelledby="offcanvasNavbarLabel" style="visibility: visible;">
+              <!-- VaButton to close offcanvas -->
+              <button class="bg-transparent py-2 " type="button" @click="toggleOffcanvasVisibility"
+                :class="{ 'hide': !sidebarVisible }">
+                <VaIcon class="justify-content-end" color="white" name="close" size=" lg" />
+              </button>
+
+              <VaAccordion class="max-w-sm border-1 border-light">
+                <VaCollapse class="text-light-bold-2 p-2 menu-item" header="CATEGORY">
+                  <template #body>
+                    <!-- Dynamic Categories List Items -->
+                    <div v-for="(category, index) in uniqueCategories" :key="`category-item-${index}`">
+                      <VaSidebarItem class="align-items-center menu-item" @click="handleCategoryClick(category)">
+                        <VaSidebarItemContent>
+
+                          <VaSidebarItemTitle class=" text-light">{{ category }}
+                          </VaSidebarItemTitle>
+                        </VaSidebarItemContent>
+                      </VaSidebarItem>
+                    </div>
+                  </template>
+                </VaCollapse>
+              </VaAccordion>
+
+              <VaAccordion class="max-w-sm">
+                <VaCollapse class="text-light-bold-2 p-2 menu-item" header="BRAND">
+                  <template #body>
+                    <div class="brand-grid  text-align-left">
+                      <div class="brand-item me-2" v-for="(brand, index) in uniqueBrands" :key="`brand-item-${index}`">
+                        <VaSidebarItem @click="handleBrandClick(brand)" class="menu-item">
+                          <VaSidebarItemContent>
+
+                            <VaSidebarItemTitle class=" brand-item text-light">
+                              {{ brand
+                              }}
+                            </VaSidebarItemTitle>
+                          </VaSidebarItemContent>
+                        </VaSidebarItem>
+                      </div>
+                    </div>
+                  </template>
+                </VaCollapse>
+              </VaAccordion>
+
+
+
+
+              <!-- Other Main Navigation Links -->
+              <VaSidebarItem @click="toggleSupportVisibility" class="menu-item">
+                <VaSidebarItemContent>
+                  <VaIcon color="danger" name="help" />
+                  <VaSpacer class="spacer" />
+                  <VaSidebarItemTitle class="text-light-bold-2">SUPPORT</VaSidebarItemTitle>
+                </VaSidebarItemContent>
+              </VaSidebarItem>
+              <VaSidebarItem @click="toggleBlogVisibility" class="menu-item">
+                <VaSidebarItemContent>
+                  <VaIcon color="white" name="description" />
+                  <VaSpacer class="spacer" />
+                  <VaSidebarItemTitle class="text-light-bold-2">BLOG</VaSidebarItemTitle>
+                </VaSidebarItemContent>
+              </VaSidebarItem>
+              <VaSidebarItem @click="toggleCartVisibility" class="menu-item">
+                <VaSidebarItemContent>
+                  <VaIcon color="white" name="shopping_cart" />
+                  <VaSpacer class="spacer" />
+                  <VaSidebarItemTitle class="text-light-bold-2">Shopping Cart</VaSidebarItemTitle>
+                </VaSidebarItemContent>
+              </VaSidebarItem>
+
+              <VaSidebarItem @click="toggleBuildVisibility" class="menu-item">
+                <VaSidebarItemContent>
+                  <VaIcon color="white" name="build" />
+                  <VaSpacer class="spacer" />
+                  <VaSidebarItemTitle class="text-light-bold-2">BUILD</VaSidebarItemTitle>
+                </VaSidebarItemContent>
+              </VaSidebarItem>
+              <VaSidebarItem class="menu-item">
+                <VaSidebarItemContent>
+                  <form class="search-form w-100 d-flex">
+                    <input v-model="searchQuery" class="form-control search-input" type="search"
+                      placeholder="Search for computer parts, brands, and accessories" aria-label="Search" />
+                    <button class="btn btn-success-2 ms-2" @click.prevent="performSearch($event)" type="submit">
+                      Search
+                    </button>
+                  </form>
+                </VaSidebarItemContent>
+              </VaSidebarItem>
+
+
+
+            </div>
+          </VaSidebar>
+
         </div>
+
       </nav>
     </div>
-    <LoginModal v-model="isModalVisible" @toggle-login-modal="toggleLoginModal" />
+    <LoginModal class="login-modal" v-model="isModalVisible" @toggle-login-modal="toggleLoginModal" />
   </header>
 </template>
 
 <script>
-  import LoginModal from '../modals/LoginModal.vue'
+  import LoginModal from '../modals/LoginModal.vue';
   export default {
     components: {
       LoginModal
@@ -143,36 +240,72 @@
 
     data() {
       return {
+
+
+        sidebarVisible: false,
         searchQuery: '',
         isModalVisible: false
       }
     },
     methods: {
+      handleResize() {
+        this.windowWidth = window.innerWidth;
+      },
+      toggleOffcanvasVisibility() {
+        this.sidebarVisible = !this.sidebarVisible;
+      },
       loadProductCards(selectedItem) {
         this.$emit('load-product-cards', selectedItem)
       },
       performSearch(event) {
-        event.preventDefault() // Add this line to prevent form submission.
+        event.preventDefault()
         this.$emit('search', this.searchQuery)
+        if (this.windowWidth < 996) {
+          this.toggleOffcanvasVisibility();
+        }
       },
       toggleBuilderZoneVisibility() {
         this.$emit('toggle-builder-zone')
+        if (this.windowWidth < 996) {
+          this.toggleOffcanvasVisibility();
+        }
       },
 
       toggleCartVisibility() {
         this.$emit('toggle-cart')
+        if (this.windowWidth < 996) {
+          this.toggleOffcanvasVisibility();
+        }
       },
       toggleBuildVisibility() {
         this.$emit('toggle-build')
+        if (this.windowWidth < 996) {
+          this.toggleOffcanvasVisibility();
+        }
       },
       toggleSupportVisibility() {
         this.$emit('toggle-support')
+        if (this.windowWidth < 996) {
+          this.toggleOffcanvasVisibility();
+        }
       },
       toggleBlogVisibility() {
         this.$emit('toggle-blog')
+        if (this.windowWidth < 996) {
+          this.toggleOffcanvasVisibility();
+        }
+      },
+      toggleMessageBoard() {
+        this.$emit('toggle-board')
+        if (this.windowWidth < 996) {
+          this.toggleOffcanvasVisibility();
+        }
       },
       toggleLoginModal() {
         this.$emit('toggle-login-modal')
+        if (this.windowWidth < 996) {
+          this.toggleOffcanvasVisibility();
+        }
         this.isModalVisible = true
       },
       filterProducts(filterType, filterValue) {
@@ -180,10 +313,16 @@
       },
       handleCategoryClick(category) {
         this.loadProductCards(category)
+        if (this.windowWidth < 996) {
+          this.toggleOffcanvasVisibility();
+        }
         this.scrollToProductCarousel()
       },
       handleBrandClick(brand) {
         this.loadProductCards(brand)
+        if (this.windowWidth < 996) {
+          this.toggleOffcanvasVisibility();
+        }
         this.scrollToProductCarousel()
       },
       scrollToProductCarousel() {
@@ -193,10 +332,15 @@
         }
       }
     },
+    mounted() {
+      window.addEventListener('resize', this.handleResize);
+    },
+    beforeUnmount() {
+      window.removeEventListener('resize', this.handleResize);
+    },
     computed: {
+
       uniqueCategories() {
-        // Collect unique categories
-        // const catSet = 
 
         return Array.from(this.products.reduce((acc, product) => {
           acc.add(product.category)
@@ -204,10 +348,39 @@
         }, new Set()));
       },
       uniqueBrands() {
-        // Collect unique brands
+
         const brands = this.products.map((products) => products.brand)
-        return Array.from(new Set(brands))
+        return Array.from(new Set(brands)).sort()
       }
     }
   }
+
+
 </script>
+<style>
+  .login-modal {
+    z-index: 300;
+  }
+
+  .brand-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    grid-gap: 10px;
+    justify-content: center;
+    align-items: center;
+
+
+
+
+  }
+
+  .brand-item {
+    text-align: start;
+
+  }
+
+  .menu-item {
+    border-bottom: 1px solid white;
+
+  }
+</style>ws

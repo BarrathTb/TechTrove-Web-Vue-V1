@@ -3,12 +3,13 @@
     <HeaderComponent :products="allProducts" @search="performSearch" @load-product-cards="filterProducts"
       @toggle-cart="toggleCartVisibility" @toggle-blog="toggleBlogVisibility" @toggle-build="toggleBuildVisibility"
       @toggle-support="toggleSupportVisibility" @toggle-builder-zone="toggleBuilderZoneVisibility"
-      :cart-item-count="cartItemCount" @update-cart-count="updateCartItemCount" />
+      @toggle-board="toggleMessageBoard" :cart-item-count="cartItemCount" @update-cart-count="updateCartItemCount" />
     <ShoppingCart class="shopping-cart" :cart-items="cartItems" v-if="cartVisible" @remove-cart-item="removeCartItem"
       @update-cart="updateCart" @edit-item="editIteminCart" />
     <BuilderZone v-show="builderZoneVisible" />
     <BlogSection v-show="blogVisible" />
     <SupportSection v-show="isSupportVisible" />
+    <MessageBoard :products="allProducts" v-show="boardVisible" />
     <PcBuilder :products="allProducts" v-show="buildVisible" @add-to-cart="addToCart" @toggle-build="closeBuilder" />
     <ProductDetailModal :product="selectedProduct" :initialQuantity="selectedProductQuantity" :isEditMode="isEditModal"
       v-model="detailsVisible" @add-to-cart="addToCart" @update-cart-item="updateCartItem" />
@@ -25,11 +26,11 @@
   import BlogSection from '@/components/PageSections/BlogSection.vue'
   import BuilderZone from '@/components/PageSections/BuilderZone.vue'
   import HeroImage from '@/components/PageSections/HeroImage.vue'
+  import MessageBoard from '@/components/PageSections/MessageBoard.vue'
   import PcBuilder from '@/components/PageSections/PcBuilder.vue'
   import ProductCarousel from '@/components/PageSections/ProductCarousel.vue'
   import ShoppingCart from '@/components/PageSections/ShoppingCart.vue'
   import SupportSection from '@/components/PageSections/SupportSection.vue'
-
   import ProductDetailModal from '@/components/modals/ProductDetailModal.vue'
   import HeaderComponent from '@/components/siteNavs/HeaderComponent.vue'
   import { products } from '@/data.js'
@@ -39,6 +40,7 @@
       HeaderComponent,
       ShoppingCart,
       BlogSection,
+      MessageBoard,
       SupportSection,
       PcBuilder,
       ProductDetailModal,
@@ -49,6 +51,7 @@
     },
     data() {
       return {
+        boardVisible: false,
         builderZoneVisible: false,
         selectedProductQuantity: 0,
         isEditModal: false,
@@ -69,16 +72,31 @@
         filteredProducts: products
       }
     },
+    mounted() {
+      this.loadCart();
+    },
     watch: {
       cartItems: {
         handler() {
+          this.saveCart();
           this.updateCartItemCount()
         },
-        deep: true
+        deep: true,
+        immediate: false
       }
     },
 
     methods: {
+      loadCart() {
+        const storedCart = localStorage.getItem('cartItems');
+        if (storedCart) {
+          this.cartItems = JSON.parse(storedCart);
+        }
+      },
+      saveCart() {
+        localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
+      },
+
       removeCartItem(index) {
         if (index !== -1) {
           this.cartItems.splice(index, 1);
@@ -120,8 +138,8 @@
           this.updateCart(this.cartItems)
         }
 
-        this.detailsVisible = false // Close the modal after updating
-        this.isEditModal = false // Reset the edit flag
+        this.detailsVisible = false
+        this.isEditModal = false
       },
 
       updateCartItemCount() {
@@ -149,10 +167,10 @@
       },
       performSearch(query) {
         if (typeof query !== 'string' || !query.trim()) {
-          return { products: this.allProducts, searchQuery: '' }
+          return { products: this.products, searchQuery: '' };
         }
 
-        this.searchQuery = query.trim().toLowerCase()
+        this.searchQuery = query.trim().toLowerCase();
 
         try {
           this.filteredProducts = this.allProducts.filter((product) => {
@@ -161,17 +179,28 @@
               (product.description && product.description.toLowerCase().includes(this.searchQuery)) ||
               (product.brand && product.brand.toLowerCase().includes(this.searchQuery)) ||
               (product.category && product.category.toLowerCase().includes(this.searchQuery))
-            )
-          })
+            );
+          });
 
-          return { products: this.filteredProducts, searchQuery: this.searchQuery }
+          if (this.filteredProducts.length === 0) {
+            // Alert the user that no results were found.
+            alert('No results found. Showing all products.');
+            // Return all products since no results matched the search query.
+            return { products: this.allProducts, searchQuery: this.searchQuery };
+          }
+
+          // Return the filtered list of products and the search query.
+          return { products: this.filteredProducts, searchQuery: this.searchQuery };
         } catch (error) {
-          console.error('Error occurred during search:', error)
-          return { products: this.allProducts, searchQuery: this.searchQuery }
+          console.error('Error occurred during search:', error);
+          return { products: this.allProducts, searchQuery: this.searchQuery };
         }
       },
       toggleBuilderZoneVisibility() {
         this.builderZoneVisible = !this.builderZoneVisible
+      },
+      toggleMessageBoard() {
+        this.boardVisible = !this.boardVisible
       },
 
       toggleCartVisibility() {
@@ -213,3 +242,8 @@
     }
   }
 </script>
+<style>
+  .login-modal {
+    z-index: 300;
+  }
+</style>

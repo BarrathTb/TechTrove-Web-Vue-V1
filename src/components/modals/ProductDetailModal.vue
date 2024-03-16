@@ -1,6 +1,6 @@
 <template>
   <VaModal ref="modal" v-model="detailsVisible" class="rounded product-detail-modal">
-    <!-- The following div acts as the modal container -->
+
     <template #content>
       <div class="modal-lg rounded bg-primary p-4" style="border-radius: 10px">
         <div class="modal-header d-flex justify-content-end align-items-center mb-2">
@@ -76,7 +76,8 @@
     props: {
       product: {
         type: Object,
-        required: true
+        default: () => ({}),
+        required: false
       },
       isEditMode: Boolean,
       initialQuantity: {
@@ -152,29 +153,38 @@
   .product-detail-modal {
     position: relative;
     z-index: 1000;
+    width: 50vw;
+    height: 60vh;
+
   }
 
   .hidden-checkbox {
     display: none;
   }
 
-  /* Base styles for the heart label */
+
   .heart {
     cursor: pointer;
     background-color: transparent;
     height: 30px;
-    /* Adjust as needed */
+
     width: 30px;
-    /* Adjust as needed */
+
     display: inline-block;
     background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><path d="M24.8,47l-2.9-2.7C9.6,31.1,1,22.9,1,14.5C1,7.1,6.6,1,13.4,1c4.3,0,8.1,2.2,10.6,5.7C26,3.2,29.8,1,34.1,1C40.9,1,46.5,7.1,46.5,14.5c0,8.5-8.6,16.6-20.9,30L24.8,47z" fill="%23CCCCCC"/></svg>');
-    /* Unchecked state (grey heart) */
+
     background-size: cover;
   }
 
-  /* When the checkbox is checked, use a red heart */
+
   .hidden-checkbox:checked+.heart {
     background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><path d="M24.8,47l-2.9-2.7C9.6,31.1,1,22.9,1,14.5C1,7.1,6.6,1,13.4,1c4.3,0,8.1,2.2,10.6,5.7C26,3.2,29.8,1,34.1,1C40.9,1,46.5,7.1,46.5,14.5c0,8.5-8.6,16.6-20.9,30L24.8,47z" fill="%23FF0000"/></svg>');
-    /* Checked state (red heart) */
+
+  }
+
+  .product-detail-modal {
+    position: relative;
+    z-index: 1050;
+
   }
 </style>

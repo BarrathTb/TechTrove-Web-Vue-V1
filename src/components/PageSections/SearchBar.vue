@@ -26,7 +26,7 @@
     },
     methods: {
       performSearch(event) {
-        event.preventDefault(); // Prevent form submission.
+        event.preventDefault();
         this.$emit('search', this.searchQuery);
         this.$router.push('/Home');
       },

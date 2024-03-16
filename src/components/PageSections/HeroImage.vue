@@ -3,7 +3,7 @@
     <!-- Large screens Hero Section -->
     <div :class="['container-fluid d-none d-md-block hero-image bg-primary', { 'hero-minimize': heroMinimized }]">
       <div v-if="rainActive" class="rain">
-        <!-- render drops here using a v-for loop -->
+
         <div v-for="(drop, index) in drops" :key="index" class="drop" :style="{
       left: drop.left + '%',
       bottom: drop.bottom + '%',
@@ -13,11 +13,13 @@
           <div class="stem" :style="{
       animationDelay: '0.' + drop.delay + 's',
       animationDuration: '0.5' + drop.duration + 's'
-    }"></div>
+    }">
+          </div>
           <div class="splat" :style="{
       animationDelay: '0.' + drop.delay + 's',
       animationDuration: '0.5' + drop.duration + 's'
-    }"></div>
+    }">
+          </div>
         </div>
       </div>
       <div class="row hero-text pt-5">
@@ -25,8 +27,8 @@
           <div class="row">
             <div class="d-flex align-items-center">
               <h1 :class="{ 'rainbow-text-animate': animateText }" class="display-4 pt-3 mr-auto">
-                <!-- mr-auto will push the arrow to the right -->
-                Welcome to Our Store!
+
+                {{ currentHeroTitle }}
               </h1>
               <div id="scrollDownArrow" class="arrow" @click="scrollToProductCarousel"
                 style="cursor: pointer; padding-left: 20px">
@@ -44,7 +46,7 @@
     <div class="container-fluid d-md-none d-sm-flex hero-image-sm bg-primary">
       <div class="row hero-text-sm">
         <div class="col-12 text-light mx-auto">
-          <h4>Welcome to Our Store!</h4>
+          <h4>{{ currentHeroTitle }} </h4>
           <p class="lead">Check out our latest collection below.</p>
         </div>
       </div>
@@ -57,6 +59,19 @@
     name: 'HeroSection',
     data() {
       return {
+        heroTitles: [
+          "Build Your Dream Machine",
+          "Experience Next-Level Performance",
+          "Customize Your Battlestation",
+          "Unleash Maximum Potential",
+          "Crafted for Gamers, by Gamers",
+          "Precision Engineered for Perfection",
+          "Empower Your Creativity and Gaming",
+          "Innovate, Create, Dominate",
+          "Where Power Meets Personalization",
+          "Elevate Your Gaming Experience",
+        ],
+        currentHeroTitle: '',
         heroMinimized: false,
         animateText: false,
         rainActive: false,
@@ -69,6 +84,10 @@
         if (carouselElement) {
           carouselElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
+      },
+      getRandomHeroTitle() {
+        const randomIndex = Math.floor(Math.random() * this.heroTitles.length);
+        return this.heroTitles[randomIndex];
       },
       makeItRain() {
         let increment = 0;
@@ -91,13 +110,14 @@
       },
     },
     mounted() {
+      this.currentHeroTitle = this.getRandomHeroTitle();
       setTimeout(() => {
-        // After 20 seconds, update state to apply animations
+        this.getRandomHeroTitle();
         this.heroMinimized = true;
         this.animateText = true;
         this.rainActive = true;
         this.makeItRain();
-      }, 3000); // 20000 milliseconds = 20 seconds
+      }, 3000);
     }
   }
 
@@ -109,33 +129,36 @@
       url('/TechTrove-Web-Vue-V1/images/ek-fluid-gaming-digital-reef-art-1.webp');
     background-size: cover;
     position: relative;
-    /* This is crucial for positioning .rain */
+    z-index: 1;
     width: 100vw;
     height: 82vh;
     transition: height 2s;
     overflow: hidden;
-    /* Prevents rain from spilling out */
+
   }
+
+
 
   .hero-text {
-    z-index: 200;
+    z-index: 3;
+
   }
 
-  /* .rain styles here */
+
   .rain {
     position: absolute;
     top: 0;
-    /* These four lines ensure .rain covers only the .hero-image */
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: 10;
-    /* Ensure this is above the background but below the text */
+    z-index: 2;
+
   }
 
   .arrow {
     font-size: 36px;
     animation: bounce 2s infinite;
+    z-index: 3;
   }
 
   @keyframes bounce {
@@ -192,16 +215,16 @@
   } */
 
   .rainbow-text-animate {
-    /* The following properties will clip the background to the text */
+
     background: radial-gradient(circle closest-side at center, red, orange, yellow, green, blue, indigo, violet);
-    background-size: 200% 200%;
+    background-size: 400% 400%;
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
     animation: radialGradientExpand 15s infinite linear;
-
+    z-index: 3;
     -webkit-text-fill-color: transparent;
-    display: inline-block;
+    display: block;
   }
 
   @keyframes radialGradientExpand {
@@ -217,18 +240,18 @@
 
   .hero-minimize {
     animation: reduceSize 3s forwards;
-
+    z-index: 1;
   }
 
   .hero-image {
     transition: height 2s;
-
+    z-index: 1;
   }
 
   .hero-text h1,
   .hero-text-sm h4 {
     transition: color 10s;
-    z-index: 20;
+    z-index: 3;
   }
 
 
@@ -238,6 +261,7 @@
     width: 15px;
     height: 120px;
     animation: drop 0.5s linear infinite;
+    z-index: 2;
   }
 
   @keyframes drop {
@@ -258,7 +282,8 @@
     width: 1px;
     height: 60%;
     margin-left: 7px;
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25));
+    background: linear-gradient(180deg, #ffff00, green, #0000ff, #4b0082, #ee82ee);
+    z-index: 2;
     animation: stem 0.5s linear infinite;
   }
 
@@ -276,10 +301,12 @@
   }
 
   .splat {
-    width: 15px;
-    height: 10px;
-    border-top: 2px dotted rgba(255, 255, 255, 0.5);
-    border-radius: 50%;
+    width: 20px;
+    height: 15px;
+    border-top: 2px dotted white;
+    border-radius: 100%;
+    background: radial-gradient(circle closest-side at center, red, orange, yellow, green, blue, indigo, violet);
+    z-index: 2;
     transform: scale(0);
     animation: splat 0.5s linear infinite;
   }
