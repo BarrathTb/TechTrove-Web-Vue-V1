@@ -1,14 +1,16 @@
 <template>
   <section class="builder-zone bg-primary mb-2">
-    <div class="container">
-      <!-- Title -->
-      <h1 class="builder-zone-title mt-2 tube-text-aqua">Custom PC Builds</h1>
+    <div class="container bg-primary">
+      <div class="card border-0 bg-primary mx-auto" style="max-width: 800px;">
+        <!-- Title -->
+        <h1 class="builder-zone-title mt-2 tube-text-aqua">Custom PC Builds</h1>
 
-      <!-- Loop through an array of builds and create a BuilderCard for each -->
-      <BuilderCard v-for="(build, index) in builds" :key="index" :videoSrc="build.videoSrc"
-        :powerTitle="build.powerTitle" :powerDescription="build.powerDescription" :partsTitle="build.partsTitle"
-        :partsList="build.partsList" :priceTitle="build.priceTitle" :priceDescription="build.priceDescription" />
+        <!-- Loop through an array of builds and create a BuilderCard for each -->
+        <BuilderCard v-for="(build, index) in builds" :key="index" :videoSrc="build.videoSrc"
+          :powerTitle="build.powerTitle" :powerDescription="build.powerDescription" :partsTitle="build.partsTitle"
+          :partsList="build.partsList" :priceTitle="build.priceTitle" :priceDescription="build.priceDescription" />
 
+      </div>
     </div>
   </section>
 </template>

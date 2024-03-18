@@ -2,6 +2,9 @@
   <div>
     <!-- Large screens Hero Section -->
     <div :class="['container-fluid d-none d-md-block hero-image bg-primary', { 'hero-minimize': heroMinimized }]">
+      <button class="toggle-rain-btn" @click="rainActive = !rainActive">
+        {{ rainActive ? 'Rain Off' : 'Rain On' }}
+      </button>
       <div v-if="rainActive" class="rain">
 
         <div v-for="(drop, index) in drops" :key="index" class="drop" :style="{
@@ -26,7 +29,7 @@
         <div class="col-lg-12 text-left text-light mx-auto">
           <div class="row">
             <div class="d-flex align-items-center">
-              <h1 :class="{ 'rainbow-text-animate': animateText }" class="display-4 pt-3 mr-auto">
+              <h1 :class="{ 'rainbow-text-animate': animateText }" class="display-8 pt-3 mr-auto">
 
                 {{ currentHeroTitle }}
               </h1>
@@ -328,6 +331,21 @@
       opacity: 0;
       transform: scale(1.5);
     }
+  }
+
+  .toggle-rain-btn {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    margin-right: 10px;
+    padding: 2px 5px;
+    background-color: rgba(0, 0, 0, 0.2);
+    color: rgb(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    z-index: 4;
+
   }
 
 </style>

@@ -13,7 +13,7 @@
         <h4 class="ms-3 text-light tube-text">Customize Everything.</h4>
       </div>
 
-      <button @click="toStore" class="ms-3 btn btn-success btn-lg banner-button ">Let's Shop ></button>
+      <button @click="toStore" class="ms-3 btn btn-success banner-button ">Let's Shop ></button>
     </div>
   </div>
 </template>

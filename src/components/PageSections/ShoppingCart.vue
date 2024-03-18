@@ -9,7 +9,7 @@
             <div class="col-md-6 col-sm-12 mx-auto">
               <!-- Shopping Cart Table -->
               <div class="card mx-auto bg-secondary mb-3 ">
-                <h2 class="text-light p-4">Your Cart</h2>
+                <h2 class="tube-text p-4">Your Cart</h2>
                 <div class="table-responsive">
                   <table class="table mx-auto table-dark bg-secondary col-md-4">
                     <thead>
