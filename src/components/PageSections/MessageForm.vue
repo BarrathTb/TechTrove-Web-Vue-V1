@@ -16,7 +16,7 @@
         <label for="productSelector" class="text-light text-bold">Select Product (optional):</label>
         <select id="productSelector" v-model="selectedProduct" class="form-control">
           <option disabled value="">Please select one</option>
-          <option v-for="product in products" :key="product.id" :value="product.name">{{ product.name }}</option>
+          <option v-for="product in products" :key="product.id" :value="product.id">{{ product.name }}</option>
         </select>
       </div>
 
@@ -51,10 +51,11 @@
     },
     methods: {
       submitMessage() {
+        const selectedProductObject = this.products.find(product => product.id === Number(this.selectedProduct));
         const messageData = {
           userName: this.userName,
           date: this.pickedDate,
-          productName: this.products.find(product => product.id === this.selectedProduct).name,
+          productName: selectedProductObject ? selectedProductObject.name : '',
           body: this.newMessage
         };
         this.$emit('message-submitted', messageData);
